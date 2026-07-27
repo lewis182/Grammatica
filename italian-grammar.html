@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Grammatica">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<title>Grammatica — Italian Verbs &amp; Grammar</title>
+<style>
+  :root{
+    --green:#0d8a4f; --green-dark:#0a6e3f; --red:#c8102e;
+    --ink:#2a2723; --muted:#736c62; --line:#e5dfd4;
+    --bg:#efece5; --card:#fffdf9;
+    --radius:16px; --shadow:0 1px 3px rgba(60,45,20,.06),0 6px 20px rgba(60,45,20,.05);
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --masc:#6b46c1; --fem:#d6336c;   /* gender: own palette, distinct from verb families */
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.45;
+    -webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom);}
+  header{background:var(--card);border-bottom:1px solid var(--line);
+    padding:calc(16px + env(safe-area-inset-top)) 20px 0;position:sticky;top:0;z-index:20;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .flag{width:30px;height:22px;border-radius:4px;overflow:hidden;display:flex;box-shadow:0 0 0 1px rgba(0,0,0,.06);}
+  .flag span{flex:1;} .flag .g{background:#0d8a4f;} .flag .w{background:#fff;} .flag .r{background:#c8102e;}
+  h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.01em;}
+  h1 small{display:block;font-size:12px;color:var(--muted);font-weight:500;}
+  nav{display:flex;gap:4px;margin-top:14px;}
+  nav>button{appearance:none;border:none;background:none;font-family:inherit;font-size:15px;font-weight:600;
+    color:var(--muted);padding:10px 4px 12px;margin-right:22px;cursor:pointer;border-bottom:3px solid transparent;transition:.15s;}
+  nav>button.active{color:var(--green);border-bottom-color:var(--green);}
+  main{max-width:1100px;margin:0 auto;padding:20px 20px 60px;}
+  .view{display:none;} .view.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:8px;}
+  .search{flex:1;min-width:200px;position:relative;}
+  .search input{width:100%;font-size:16px;font-family:inherit;padding:12px 14px 12px 40px;
+    border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);}
+  .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);}
+  .segmented{display:inline-flex;background:#e4ded3;border-radius:12px;padding:4px;gap:2px;flex-wrap:wrap;align-items:center;}
+  .segmented button{appearance:none;border:none;background:none;font-family:inherit;font-size:14px;font-weight:600;
+    color:var(--muted);padding:8px 12px;border-radius:9px;cursor:pointer;transition:.15s;white-space:nowrap;}
+  .segmented button.active{background:var(--card);color:var(--green);box-shadow:0 1px 2px rgba(0,0,0,.08);}
+  .seg-sep{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:0 6px;}
+  .section-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:26px 2px 12px;}
+  /* pattern card */
+  .pattern-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;margin:18px 0 6px;}
+  .pattern-card h3{margin:0 0 4px;font-size:15px;}
+  .pattern-card .sub{font-size:12.5px;color:var(--muted);margin-bottom:12px;}
+  table.pattern{width:100%;border-collapse:collapse;font-size:14px;}
+  table.pattern th{font-size:12px;font-weight:700;text-align:center;padding:6px 8px;border-bottom:1px solid var(--line);}
+  table.pattern th:first-child{text-align:left;color:var(--muted);}
+  table.pattern td{padding:8px;text-align:center;border-bottom:1px solid #f1ede4;font-weight:600;}
+  table.pattern td.p{text-align:left;color:var(--muted);font-weight:500;}
+  table.pattern th.fa,table.pattern td.fa{color:#0a6e3f;background:#eef7f1;}
+  table.pattern th.fe,table.pattern td.fe{color:#343e9c;background:#eef0fb;}
+  table.pattern th.fi,table.pattern td.fi{color:#a81430;background:#fdeef1;}
+  table.pattern th.fx,table.pattern td.fx{color:#8a5000;background:#fbf2e0;}
+  table.pattern td.k{font-weight:800;}
+  table.pattern td.fa.k{background:#c7e8d4;} table.pattern td.fe.k{background:#ccd4f4;}
+  table.pattern td.fi.k{background:#f8d1da;} table.pattern td.fx.k{background:#f1dcb2;}
+  table.pattern td.d2{box-shadow:inset 0 -3px 0 currentColor;font-weight:700;}
+  .legend{display:flex;gap:14px;margin-top:10px;font-size:12px;color:var(--muted);flex-wrap:wrap;align-items:center;}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
+  .legend u{text-decoration:none;box-shadow:inset 0 -3px 0 #999;padding-bottom:1px;}
+  /* verb cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border-left:4px solid var(--line);cursor:pointer;}
+  .card.fam-are{border-left-color:#0d8a4f;} .card.fam-ere{border-left-color:#3d47a8;}
+  .card.fam-ire{border-left-color:#c8102e;} .card.fam-irr{border-left-color:#cf8a2a;}
+  .card-head{padding:14px 16px 12px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+  .verb{font-size:19px;font-weight:700;} .gloss{font-size:13px;color:var(--muted);font-style:italic;}
+  .badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap;}
+  .badge.are{background:#e6f4ec;color:var(--green-dark);} .badge.ere{background:#eef0fb;color:#3d47a8;}
+  .badge.ire{background:#fdeef0;color:#a81430;} .badge.irr{background:#fbefda;color:#8a5000;}
+  table.conj{width:100%;border-collapse:collapse;font-size:15px;}
+  table.conj td{padding:9px 16px;border-bottom:1px solid #f1ede4;} table.conj tr:last-child td{border-bottom:none;}
+  .pron{color:var(--muted);width:42%;}
+  .form{font-weight:600;display:flex;align-items:center;justify-content:flex-end;gap:8px;text-align:right;}
+  .spk{background:none;border:none;cursor:pointer;font-size:13px;opacity:.45;padding:0;line-height:1;}
+  .spk:hover,.spk:active{opacity:1;}
+  .card-hint{font-size:11px;color:var(--muted);text-align:center;padding:6px;background:#faf7f0;border-top:1px solid #f1ede4;}
+  .aux-note{font-size:12px;color:var(--muted);padding:6px 16px 10px;background:#faf7f0;}
+  /* practice */
+  .practice-wrap{max-width:520px;margin:0 auto;}
+  .quiz-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 24px;text-align:center;}
+  .quiz-meta{font-size:13px;color:var(--muted);margin-bottom:18px;display:flex;justify-content:space-between;}
+  .quiz-prompt{font-size:15px;color:var(--muted);}
+  .quiz-verb{font-size:30px;font-weight:800;margin:6px 0 2px;letter-spacing:-.01em;}
+  .quiz-gloss{font-size:14px;color:var(--muted);font-style:italic;margin-bottom:4px;}
+  .quiz-pron{font-size:22px;font-weight:700;color:var(--green);margin:14px 0 18px;}
+  .accents{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px;}
+  .accents button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 13px;font-size:17px;font-family:inherit;cursor:pointer;color:var(--ink);}
+  .accents button:active{background:#eee;}
+  .quiz-input{width:100%;font-size:22px;text-align:center;font-family:inherit;padding:14px;border:2px solid var(--line);border-radius:12px;color:var(--ink);background:var(--card);}
+  .quiz-input:focus{outline:none;border-color:var(--green);}
+  .quiz-input.correct{border-color:var(--green);background:#e6f4ec;} .quiz-input.wrong{border-color:var(--red);background:#fdeef0;}
+  .mc-options{display:flex;flex-direction:column;gap:10px;}
+  .mc-options button{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px;font-size:19px;font-family:inherit;cursor:pointer;color:var(--ink);font-weight:600;transition:.12s;}
+  .mc-options button:active{background:#f0ede6;}
+  .mc-options button.correct{background:#e6f4ec;border-color:var(--green);color:var(--green-dark);}
+  .mc-options button.wrong{background:#fdeef0;border-color:var(--red);color:var(--red);}
+  .btn{appearance:none;border:none;font-family:inherit;font-size:17px;font-weight:700;padding:14px 20px;border-radius:12px;cursor:pointer;width:100%;margin-top:14px;transition:.15s;}
+  .btn-primary{background:var(--green);color:#fff;} .btn-primary:active{background:var(--green-dark);}
+  .feedback{min-height:24px;font-size:15px;font-weight:600;margin-top:14px;}
+  .feedback.ok{color:var(--green);} .feedback.no{color:var(--red);} .feedback .answer{color:var(--ink);}
+  .scorebar{display:flex;gap:10px;margin-bottom:8px;}
+  .stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;}
+  .stat b{display:block;font-size:22px;color:var(--ink);} .stat span{font-size:12px;color:var(--muted);}
+  .reset{text-align:center;margin-bottom:16px;}
+  .reset button{background:none;border:none;color:var(--muted);font-size:12px;text-decoration:underline;cursor:pointer;font-family:inherit;}
+  .config{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:18px;}
+  .config h3{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-size:14px;font-weight:600;padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;transition:.15s;}
+  .chip.on{background:var(--green);color:#fff;border-color:var(--green);}
+  /* grammar */
+  .gwrap{display:flex;gap:22px;align-items:flex-start;}
+  .gmenu{flex:0 0 244px;position:sticky;top:132px;display:flex;flex-direction:column;gap:16px;}
+  .gmenu .grp h4{font-size:11px;text-transform:uppercase;letter-spacing:.07em;margin:0 0 7px 2px;color:var(--muted);}
+  .gmenu button{display:flex;gap:9px;align-items:center;width:100%;text-align:left;border:1px solid var(--line);
+    background:var(--card);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:13.5px;font-weight:600;
+    color:var(--ink);cursor:pointer;margin-bottom:6px;border-left:4px solid var(--tier);transition:.15s;}
+  .gmenu button:last-child{margin-bottom:0;}
+  .gmenu button .n{flex:0 0 20px;height:20px;border-radius:50%;background:var(--tier);color:#fff;font-size:11px;
+    display:flex;align-items:center;justify-content:center;font-weight:800;}
+  .gmenu button.active{background:var(--tier-soft);}
+  .gcontent{flex:1;min-width:0;}
+  .gpanel{display:none;} .gpanel.active{display:block;animation:fade .2s ease;}
+  .t-found{--tier:#0d8a4f;--tier-soft:#e9f5ee;} .t-build{--tier:#2f5fb0;--tier-soft:#eaf0fa;}
+  .t-verb{--tier:#b06f00;--tier-soft:#fbf2e0;} .t-adv{--tier:#c8102e;--tier-soft:#fdeef1;}
+  .prose{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px;border-left:5px solid var(--tier,#ccc);}
+  .prose h2{font-size:19px;margin:0 0 12px;} .prose h3{font-size:15px;margin:20px 0 6px;}
+  .prose p{margin:0 0 12px;color:#463f36;} .prose p:last-child{margin-bottom:0;}
+  .prose code{background:#efe9de;padding:2px 6px;border-radius:5px;font-size:14px;}
+  .prose ul{margin:0 0 12px;padding-left:20px;color:#463f36;} .prose li{margin-bottom:6px;}
+  .gtable{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 16px;}
+  .gtable th,.gtable td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  .gtable th{background:#f3eee4;font-weight:700;color:var(--ink);}
+  .gtable td:first-child,.gtable th:first-child{text-align:left;background:#f8f4ec;font-weight:600;}
+  .gtable .hl{color:var(--green-dark);font-weight:700;}
+  .gm{color:var(--masc);font-weight:700;} .gf{color:var(--fem);font-weight:700;}
+  .fam-pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:20px;margin-right:4px;}
+  .fam-pill.are{background:#e6f4ec;color:#0a6e3f;} .fam-pill.ere{background:#eef0fb;color:#343e9c;} .fam-pill.ire{background:#fdeef1;color:#a81430;}
+  .callout{background:var(--tier-soft,#eef5f0);border-left:3px solid var(--tier,var(--green));border-radius:8px;padding:12px 14px;margin:6px 0 16px;font-size:14px;color:#3a3830;}
+  .empty{text-align:center;color:var(--muted);padding:50px 20px;}
+  /* detail overlay */
+  .overlay{position:fixed;inset:0;background:rgba(30,25,15,.45);display:none;align-items:flex-start;justify-content:center;z-index:50;padding:24px 12px;overflow:auto;}
+  .overlay.on{display:flex;}
+  .detail{background:var(--card);border-radius:var(--radius);box-shadow:0 10px 40px rgba(0,0,0,.25);max-width:840px;width:100%;padding:20px;}
+  .detail-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+  .detail-head .x{background:none;border:none;font-size:26px;cursor:pointer;color:var(--muted);line-height:1;}
+  .detail-scroll{overflow-x:auto;}
+  table.detail-t{border-collapse:collapse;font-size:14px;min-width:660px;width:100%;}
+  table.detail-t th,table.detail-t td{border:1px solid var(--line);padding:8px 10px;text-align:center;white-space:nowrap;}
+  table.detail-t th{background:#f3eee4;font-weight:700;}
+  table.detail-t td:first-child,table.detail-t th:first-child{position:sticky;left:0;background:#f8f4ec;text-align:left;color:var(--muted);}
+  table.detail-t td.spk{cursor:pointer;}
+  .tap-hint{font-size:12px;color:var(--muted);margin-top:8px;}
+  @media(max-width:760px){ .gwrap{flex-direction:column;} .gmenu{position:static;flex-basis:auto;} }
+  @media(max-width:520px){ nav>button{margin-right:16px;font-size:14px;} main{padding:16px 14px 50px;}
+    table.pattern{font-size:13px;} table.pattern td,table.pattern th{padding:6px 4px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="flag"><span class="g"></span><span class="w"></span><span class="r"></span></div>
+    <h1>Grammatica<small>Italian verbs &amp; grammar</small></h1>
+  </div>
+  <nav>
+    <button data-view="reference" class="active">Reference</button>
+    <button data-view="practice">Practice</button>
+    <button data-view="grammar">Grammar</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ============ REFERENCE ============ -->
+  <section id="reference" class="view active">
+    <div class="toolbar">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="searchBox" type="search" placeholder="Search a verb (e.g. andare, to speak)…" autocomplete="off">
+      </div>
+      <div class="segmented" id="tenseSeg">
+        <button data-tense="presente" class="active">Present</button>
+        <button data-tense="passato">Passato pross.</button>
+        <button data-tense="imperfetto">Imperfetto</button>
+        <button data-tense="futuro">Futuro</button>
+        <span class="seg-sep">mood</span>
+        <button data-tense="condizionale">Condizionale</button>
+        <button data-tense="congiuntivo">Congiuntivo</button>
+      </div>
+    </div>
+    <div id="patternBox"></div>
+    <div id="refBody"></div>
+  </section>
+
+  <!-- ============ PRACTICE ============ -->
+  <section id="practice" class="view">
+    <div class="practice-wrap">
+      <div class="config">
+        <h3>Mode</h3>
+        <div class="chips" id="pMode">
+          <div class="chip on" data-mode="type">Type the answer</div>
+          <div class="chip" data-mode="mc">Multiple choice</div>
+        </div>
+        <h3 style="margin-top:16px;">Focus</h3>
+        <div class="chips" id="pFocus">
+          <div class="chip on" data-focus="all">All verbs</div>
+          <div class="chip" data-focus="mistakes">My mistakes (<span id="missCount">0</span>)</div>
+        </div>
+        <h3 style="margin-top:16px;">Tense / mood</h3>
+        <div class="chips" id="pTense">
+          <div class="chip on" data-tense="presente">Present</div>
+          <div class="chip" data-tense="passato">Passato prossimo</div>
+          <div class="chip" data-tense="imperfetto">Imperfetto</div>
+          <div class="chip" data-tense="futuro">Futuro</div>
+          <div class="chip" data-tense="condizionale">Condizionale</div>
+          <div class="chip" data-tense="congiuntivo">Congiuntivo</div>
+        </div>
+        <h3 style="margin-top:16px;">Verbs</h3>
+        <div class="chips" id="pPool">
+          <div class="chip on" data-pool="regular">Regular</div>
+          <div class="chip on" data-pool="irregular">Irregular</div>
+        </div>
+      </div>
+      <div class="scorebar">
+        <div class="stat"><b id="sCorrect">0</b><span>Correct</span></div>
+        <div class="stat"><b id="sTotal">0</b><span>Answered</span></div>
+        <div class="stat"><b id="sStreak">0</b><span>Streak</span></div>
+      </div>
+      <div class="reset"><button id="resetBtn">Reset progress</button></div>
+      <div class="quiz-card">
+        <div class="quiz-meta"><span id="qTense">Present</span><span id="qBadge"></span></div>
+        <div class="quiz-prompt">Conjugate</div>
+        <div class="quiz-verb" id="qVerb">—</div>
+        <div class="quiz-gloss" id="qGloss"></div>
+        <div class="quiz-pron" id="qPron"></div>
+        <div id="typeBlock">
+          <div class="accents" id="accentBar"></div>
+          <input class="quiz-input" id="qInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type the form…">
+          <button class="btn btn-primary" id="qCheck">Check</button>
+        </div>
+        <div id="mcBlock" style="display:none;">
+          <div class="mc-options" id="mcOptions"></div>
+          <button class="btn btn-primary" id="mcNext" style="display:none;">Next →</button>
+        </div>
+        <div class="feedback" id="qFeedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section id="grammar" class="view">
+    <div class="gwrap">
+      <aside class="gmenu" id="gMenu">
+        <div class="grp t-found">
+          <h4>Foundations</h4>
+          <button class="active" data-panel="g-gender"><span class="n">1</span> Masculine &amp; feminine</button>
+          <button data-panel="g-genex"><span class="n">2</span> Gender: exceptions &amp; clues</button>
+          <button data-panel="g-articles"><span class="n">3</span> Articles (the / a)</button>
+          <button data-panel="g-agree"><span class="n">4</span> Agreement</button>
+          <button data-panel="g-adjpos"><span class="n">5</span> Adjective position</button>
+        </div>
+        <div class="grp t-build">
+          <h4>Building blocks</h4>
+          <button data-panel="g-pronouns"><span class="n">6</span> Subject pronouns</button>
+          <button data-panel="g-objposs"><span class="n">7</span> Object &amp; possessive pronouns</button>
+          <button data-panel="g-prep"><span class="n">8</span> Prepositions (nel / nella)</button>
+        </div>
+        <div class="grp t-verb">
+          <h4>Verbs &amp; tenses</h4>
+          <button data-panel="g-families"><span class="n">9</span> The three families</button>
+          <button data-panel="g-endings"><span class="n">10</span> Endings that repeat</button>
+          <button data-panel="g-tenses"><span class="n">11</span> Past · present · future</button>
+          <button data-panel="g-continuous"><span class="n">12</span> Present continuous</button>
+          <button data-panel="g-essere"><span class="n">13</span> Which verbs take essere</button>
+        </div>
+        <div class="grp t-adv">
+          <h4>Harder concepts</h4>
+          <button data-panel="g-reflexive"><span class="n">14</span> Reflexive verbs</button>
+          <button data-panel="g-ppimp"><span class="n">15</span> Passato vs imperfetto</button>
+        </div>
+      </aside>
+      <div class="gcontent">
+        <!-- 1 -->
+        <div class="gpanel t-found active" id="g-gender"><div class="prose">
+          <h2>Masculine &amp; feminine — start here</h2>
+          <p>This is the foundation English does not have, and everything builds on it. <strong>Every noun has a gender</strong>, and its ending signals gender and number. Get this and sentence construction follows; miss it and articles, adjectives and prepositions won't make sense.</p>
+          <div class="callout">Throughout this app, <span class="gm">masculine is shown in violet</span> and <span class="gf">feminine in pink</span> (kept separate from the verb-family colours).</div>
+          <table class="gtable">
+            <tr><th>Ending</th><th>Usually</th><th>Singular</th><th>Plural</th></tr>
+            <tr><td class="gm">-o</td><td class="gm">masculine</td><td>libr<span class="gm">o</span></td><td>libr<span class="gm">i</span></td></tr>
+            <tr><td class="gf">-a</td><td class="gf">feminine</td><td>cas<span class="gf">a</span></td><td>cas<span class="gf">e</span></td></tr>
+            <tr><td>-e</td><td>either</td><td>cane (m) · chiave (f)</td><td>can<span class="hl">i</span> · chiav<span class="hl">i</span></td></tr>
+          </table>
+          <p>Plural rule: <span class="gm">-o → -i</span>, <span class="gf">-a → -e</span>, and <code>-e</code> words (either gender) → <code>-i</code>. This is a <strong>strong tendency, not a law</strong> — see the next panel for the exceptions and the endings that predict gender reliably.</p>
+        </div></div>
+
+        <!-- 2 -->
+        <div class="gpanel t-found" id="g-genex"><div class="prose">
+          <h2>Gender: exceptions &amp; reliable clues</h2>
+          <p>The -o/-a rule fails often enough to catch you out. Learn these early so you don't build the wrong habit.</p>
+          <h3>Common exceptions</h3>
+          <table class="gtable">
+            <tr><th>Looks like…</th><th>But is…</th><th>Examples</th></tr>
+            <tr><td>-a</td><td class="gm">masculine</td><td>il problema, il tema, il programma, il sistema, il clima, il cinema, il papa, il poeta</td></tr>
+            <tr><td>-o</td><td class="gf">feminine</td><td>la mano, la foto, la radio, la moto, la biro</td></tr>
+          </table>
+          <p>Many words ending <code>-ma</code> (from Greek) are masculine.</p>
+          <h3>Endings that DO predict gender</h3>
+          <table class="gtable">
+            <tr><th>Ending</th><th>Gender</th><th>Examples</th></tr>
+            <tr><td>-zione, -sione, -tà, -tù, -i</td><td class="gf">feminine</td><td>la stazione, la città, la virtù, la crisi</td></tr>
+            <tr><td>-ore, -ale, -ile, -ame</td><td class="gm">masculine</td><td>il colore, il giornale, il fiume</td></tr>
+          </table>
+          <p>For people, gender is natural; nouns in <code>-ista</code> or <code>-e</code> can be both: <em>il / la turista, il / la cantante</em>. For any <code>-e</code> noun, learn it <strong>with its article</strong>.</p>
+        </div></div>
+
+        <!-- 3 -->
+        <div class="gpanel t-found" id="g-articles"><div class="prose">
+          <h2>Articles — "the" and "a"</h2>
+          <p>The article matches the noun's gender, number and first letter.</p>
+          <h3>Definite ("the")</h3>
+          <table class="gtable">
+            <tr><th>Gender</th><th>Singular</th><th>Plural</th><th>Before</th></tr>
+            <tr><td class="gm">masc.</td><td class="gm">il</td><td class="gm">i</td><td>most consonants (il gatto → i gatti)</td></tr>
+            <tr><td class="gm">masc.</td><td class="gm">lo</td><td class="gm">gli</td><td>s+cons., z, gn, ps, x, y (lo studente → gli studenti)</td></tr>
+            <tr><td>m./f.</td><td>l’</td><td><span class="gm">gli</span> / <span class="gf">le</span></td><td>a vowel (l’amico → gli amici)</td></tr>
+            <tr><td class="gf">fem.</td><td class="gf">la</td><td class="gf">le</td><td>consonants (la casa → le case)</td></tr>
+          </table>
+          <h3>Indefinite ("a / an")</h3>
+          <table class="gtable">
+            <tr><th>Gender</th><th>Form</th><th>Before</th></tr>
+            <tr><td class="gm">masc.</td><td class="gm">un</td><td>vowels &amp; most consonants (un amico, un gatto)</td></tr>
+            <tr><td class="gm">masc.</td><td class="gm">uno</td><td>s+cons., z, gn, ps (uno studente)</td></tr>
+            <tr><td class="gf">fem.</td><td class="gf">una</td><td>consonants (una casa)</td></tr>
+            <tr><td class="gf">fem.</td><td class="gf">un’</td><td>a vowel (un’amica)</td></tr>
+          </table>
+        </div></div>
+
+        <!-- 4 -->
+        <div class="gpanel t-found" id="g-agree"><div class="prose">
+          <h2>Agreement in a sentence</h2>
+          <p>Adjectives — and many past participles — must <strong>match</strong> the noun in gender and number, echoing the o/a rule.</p>
+          <table class="gtable">
+            <tr><th></th><th class="gm">Masculine</th><th class="gf">Feminine</th></tr>
+            <tr><td>Singular</td><td>il ragazz<span class="gm">o</span> alt<span class="gm">o</span></td><td>la ragazz<span class="gf">a</span> alt<span class="gf">a</span></td></tr>
+            <tr><td>Plural</td><td>i ragazz<span class="gm">i</span> alt<span class="gm">i</span></td><td>le ragazz<span class="gf">e</span> alt<span class="gf">e</span></td></tr>
+          </table>
+          <p>This drives the passato prossimo of <strong>essere</strong>-verbs: <em>Marco è andat<span class="gm">o</span></em>, <em>Anna è andat<span class="gf">a</span></em>, <em>sono andat<span class="gm">i</span></em>, <em>sono andat<span class="gf">e</span></em>.</p>
+        </div></div>
+
+        <!-- 5 -->
+        <div class="gpanel t-found" id="g-adjpos"><div class="prose">
+          <h2>Adjective position</h2>
+          <p>Unlike English, most descriptive adjectives come <strong>after</strong> the noun.</p>
+          <ul>
+            <li><strong>After</strong> (the norm): una macchina ross<span class="gf">a</span>, un libro interessante, un vino italiano.</li>
+            <li><strong>Before</strong> (a small common set): bello, buono, brutto, grande, piccolo, nuovo, vecchio, giovane, bravo — <em>una bella casa, un buon amico</em>.</li>
+          </ul>
+          <p>A few change meaning by position:</p>
+          <table class="gtable">
+            <tr><th>Before</th><th>After</th></tr>
+            <tr><td>un <strong>grande</strong> uomo — a great man</td><td>un uomo <strong>grande</strong> — a big / tall man</td></tr>
+            <tr><td>una <strong>vecchia</strong> amica — a long-standing friend</td><td>un’amica <strong>vecchia</strong> — an elderly friend</td></tr>
+          </table>
+          <p>Either way, the adjective still agrees in gender and number.</p>
+        </div></div>
+
+        <!-- 6 -->
+        <div class="gpanel t-build" id="g-pronouns"><div class="prose">
+          <h2>Subject pronouns</h2>
+          <p>They mark the person but are usually <strong>dropped</strong>, because the verb ending already shows who (<em>parlo</em> = "I speak"). Learn them in the order every table here uses.</p>
+          <table class="gtable">
+            <tr><th>Person</th><th>Italian</th><th>English</th></tr>
+            <tr><td>1 sing.</td><td class="hl">io</td><td>I</td></tr>
+            <tr><td>2 sing.</td><td class="hl">tu</td><td>you (informal)</td></tr>
+            <tr><td>3 sing.</td><td class="hl">lui / lei</td><td>he / she (Lei = formal you)</td></tr>
+            <tr><td>1 plur.</td><td class="hl">noi</td><td>we</td></tr>
+            <tr><td>2 plur.</td><td class="hl">voi</td><td>you (all)</td></tr>
+            <tr><td>3 plur.</td><td class="hl">loro</td><td>they</td></tr>
+          </table>
+        </div></div>
+
+        <!-- 7 -->
+        <div class="gpanel t-build" id="g-objposs"><div class="prose">
+          <h2>Object &amp; possessive pronouns</h2>
+          <h3>Direct object — "whom / what"</h3>
+          <p>They replace the thing acted on and sit <strong>before</strong> the verb: mi, ti, <span class="gm">lo</span> / <span class="gf">la</span>, ci, vi, <span class="gm">li</span> / <span class="gf">le</span>.</p>
+          <p><em><span class="gm">Lo</span> vedo</em> = I see him / it. &nbsp; <em><span class="gf">La</span> compro</em> = I'm buying it (fem.).</p>
+          <h3>Indirect object — "to whom"</h3>
+          <p>mi, ti, gli / le, ci, vi, gli: <em>Gli parlo</em> = I speak to him; <em>Le scrivo</em> = I write to her.</p>
+          <h3>Possessives</h3>
+          <p>Normally used <strong>with the article</strong> and they agree with the thing owned, not the owner — so <em>la sua casa</em> is "his <em>or</em> her house".</p>
+          <table class="gtable">
+            <tr><th>Owner</th><th class="gm">m. sing.</th><th class="gf">f. sing.</th><th class="gm">m. plur.</th><th class="gf">f. plur.</th></tr>
+            <tr><td>my</td><td>il mio</td><td>la mia</td><td>i miei</td><td>le mie</td></tr>
+            <tr><td>your</td><td>il tuo</td><td>la tua</td><td>i tuoi</td><td>le tue</td></tr>
+            <tr><td>his / her</td><td>il suo</td><td>la sua</td><td>i suoi</td><td>le sue</td></tr>
+          </table>
+        </div></div>
+
+        <!-- 8 -->
+        <div class="gpanel t-build" id="g-prep"><div class="prose">
+          <h2>Articulated prepositions — <em>nel</em>, <em>nella</em></h2>
+          <p>When a preposition meets a definite article, the two <strong>fuse</strong>. That's why <em>in + <span class="gm">il</span></em> → <span class="gm">nel</span> but <em>in + <span class="gf">la</span></em> → <span class="gf">nella</span> — the ending follows the article's gender and number.</p>
+          <table class="gtable">
+            <tr><th></th><th class="gm">+ il</th><th class="gm">+ lo</th><th>+ l’</th><th class="gf">+ la</th><th class="gm">+ i</th><th class="gm">+ gli</th><th class="gf">+ le</th></tr>
+            <tr><td>di</td><td>del</td><td>dello</td><td>dell’</td><td>della</td><td>dei</td><td>degli</td><td>delle</td></tr>
+            <tr><td>a</td><td>al</td><td>allo</td><td>all’</td><td>alla</td><td>ai</td><td>agli</td><td>alle</td></tr>
+            <tr><td>da</td><td>dal</td><td>dallo</td><td>dall’</td><td>dalla</td><td>dai</td><td>dagli</td><td>dalle</td></tr>
+            <tr><td>in</td><td class="gm">nel</td><td>nello</td><td>nell’</td><td class="gf">nella</td><td>nei</td><td>negli</td><td>nelle</td></tr>
+            <tr><td>su</td><td>sul</td><td>sullo</td><td>sull’</td><td>sulla</td><td>sui</td><td>sugli</td><td>sulle</td></tr>
+          </table>
+          <p><em>Vado <span class="gm">nel</span> giardino</em> but <em>Vado <span class="gf">nella</span> cucina</em>. <code>con</code> and <code>per</code> are normally left uncontracted.</p>
+        </div></div>
+
+        <!-- 9 -->
+        <div class="gpanel t-verb" id="g-families"><div class="prose">
+          <h2>The three verb families</h2>
+          <p>Every verb belongs to one group by its infinitive ending. Drop the ending for the <strong>stem</strong>, then add the endings for each person and tense.</p>
+          <p><span class="fam-pill are">-are</span> parlare &nbsp; <span class="fam-pill ere">-ere</span> credere &nbsp; <span class="fam-pill ire">-ire</span> dormire</p>
+          <p>These colours follow the verb through the app — each card in <strong>Reference</strong> carries a matching stripe. A large subset of <span class="fam-pill ire">-ire</span> verbs (capire, finire, preferire…) inserts <code>-isc-</code> in the present tense only.</p>
+        </div></div>
+
+        <!-- 10 -->
+        <div class="gpanel t-verb" id="g-endings"><div class="prose">
+          <h2>Endings that repeat</h2>
+          <p>The shortcut that saves memorising three full sets. In the <strong>present</strong>, three persons take an identical ending in all families:</p>
+          <ul>
+            <li><strong>io</strong> → always <code>-o</code> (parlo, credo, dormo)</li>
+            <li><strong>tu</strong> → always <code>-i</code> (parli, credi, dormi)</li>
+            <li><strong>noi</strong> → always <code>-iamo</code> (parliamo, crediamo, dormiamo)</li>
+          </ul>
+          <p><span class="fam-pill ere">-ere</span> and <span class="fam-pill ire">-ire</span> also share the <strong>loro</strong> ending <code>-ono</code>. In the <strong>futuro</strong> and <strong>condizionale</strong>, <span class="fam-pill are">-are</span> and <span class="fam-pill ere">-ere</span> are identical and <span class="fam-pill ire">-ire</span> only swaps a vowel. Open any tense in <strong>Reference</strong>: shared-by-all cells are bold, shared-by-two are underlined.</p>
+        </div></div>
+
+        <!-- 11 -->
+        <div class="gpanel t-verb" id="g-tenses"><div class="prose">
+          <h2>Past · present · future</h2>
+          <div class="callout"><b>Passato prossimo</b> and <b>imperfetto</b> are both <b>past</b>; <b>futuro</b> is the future. <b>Condizionale</b> ("would") and <b>congiuntivo</b> (subjunctive) are <b>moods</b>, not tenses — grouped after the "mood" divider in Reference.</div>
+          <ul>
+            <li><strong>Presente</strong> — <em>parlo</em> "I speak".</li>
+            <li><strong>Passato prossimo</strong> — <em>ho parlato</em>. Present of <strong>avere/essere</strong> + participle (-are→<code>-ato</code>, -ere→<code>-uto</code>, -ire→<code>-ito</code>). The participle stays fixed; the auxiliary changes: ho / hai / ha / abbiamo / avete / hanno capito.</li>
+            <li><strong>Imperfetto</strong> — <em>parlavo</em> "I was speaking / used to speak".</li>
+            <li><strong>Futuro</strong> — <em>parlerò</em> "I will speak".</li>
+            <li><strong>Condizionale</strong> — <em>parlerei</em> "I would speak" (vorrei = "I would like").</li>
+            <li><strong>Congiuntivo</strong> — after <em>penso che, voglio che…</em>: <em>che io parli</em>.</li>
+          </ul>
+        </div></div>
+
+        <!-- 12 -->
+        <div class="gpanel t-verb" id="g-continuous"><div class="prose">
+          <h2>Present continuous — <em>stare</em> + gerund</h2>
+          <p>For "I am (right now) doing", use the present of <strong>stare</strong> + the gerund: -are → <code>-ando</code>, -ere &amp; -ire → <code>-endo</code>.</p>
+          <table class="gtable">
+            <tr><th>stare</th><th>+ gerund</th><th>meaning</th></tr>
+            <tr><td>sto</td><td class="hl">parlando</td><td>I am speaking</td></tr>
+            <tr><td>stai</td><td class="hl">scrivendo</td><td>you are writing</td></tr>
+            <tr><td>sta</td><td class="hl">dormendo</td><td>he / she is sleeping</td></tr>
+            <tr><td>stiamo / state / stanno</td><td>mangiando…</td><td>we / you / they are eating</td></tr>
+          </table>
+        </div></div>
+
+        <!-- 13 -->
+        <div class="gpanel t-verb" id="g-essere"><div class="prose">
+          <h2>Which verbs take <em>essere</em></h2>
+          <p>Most verbs form the past with <strong>avere</strong>. A limited set uses <strong>essere</strong> — and then the participle <strong>agrees</strong> with the subject. Learn the groups:</p>
+          <table class="gtable">
+            <tr><th>Group</th><th>Verbs</th></tr>
+            <tr><td>Movement</td><td>andare, venire, arrivare, partire, uscire, entrare, tornare, salire, scendere, cadere</td></tr>
+            <tr><td>Staying</td><td>stare, restare, rimanere</td></tr>
+            <tr><td>Being / becoming</td><td>essere, diventare, nascere, morire, crescere</td></tr>
+            <tr><td>All reflexives</td><td>lavarsi, alzarsi, svegliarsi… (mi sono lavato)</td></tr>
+          </table>
+          <p>Examples: <em>sono andat<span class="gm">o</span></em>, <em>è nat<span class="gf">a</span></em>, <em>siamo rimast<span class="gm">i</span></em>. Everything else: <em>ho mangiato, ho visto, ho parlato</em>.</p>
+        </div></div>
+
+        <!-- 14 -->
+        <div class="gpanel t-adv" id="g-reflexive"><div class="prose">
+          <h2>Reflexive verbs</h2>
+          <p>Verbs like <em>lavarsi</em> (to wash oneself) take a reflexive pronoun before the verb: <strong>mi, ti, si, ci, vi, si</strong>. The verb conjugates as normal.</p>
+          <table class="gtable">
+            <tr><th>Pronoun</th><th>lavarsi</th><th>English</th></tr>
+            <tr><td class="hl">mi</td><td>mi lavo</td><td>I wash (myself)</td></tr>
+            <tr><td class="hl">ti</td><td>ti lavi</td><td>you wash</td></tr>
+            <tr><td class="hl">si</td><td>si lava</td><td>he / she washes</td></tr>
+            <tr><td class="hl">ci</td><td>ci laviamo</td><td>we wash</td></tr>
+            <tr><td class="hl">vi</td><td>vi lavate</td><td>you (all) wash</td></tr>
+            <tr><td class="hl">si</td><td>si lavano</td><td>they wash</td></tr>
+          </table>
+          <p>In the passato prossimo, reflexives always use <strong>essere</strong>, so the participle agrees: <em>mi sono lavat<span class="gm">o</span> / lavat<span class="gf">a</span></em>.</p>
+        </div></div>
+
+        <!-- 15 -->
+        <div class="gpanel t-adv" id="g-ppimp"><div class="prose">
+          <h2>Passato prossimo vs imperfetto</h2>
+          <p>Both are past, but they answer different questions — the distinction that trips up most learners, so tackle it once the individual tenses feel comfortable.</p>
+          <table class="gtable">
+            <tr><th>Passato prossimo — <em>what happened</em></th><th>Imperfetto — <em>the background</em></th></tr>
+            <tr><td>A finished, one-off action</td><td>Ongoing, habitual or repeated</td></tr>
+            <tr><td>Ieri <span class="hl">ho mangiato</span> la pizza.<br><small>Yesterday I ate pizza.</small></td><td>Da bambino <span class="hl">mangiavo</span> sempre la pizza.<br><small>As a child I always ate pizza.</small></td></tr>
+            <tr><td>The event that happens</td><td>Descriptions, time, weather, age, feelings</td></tr>
+            <tr><td>…<span class="hl">è arrivato</span> Marco.<br><small>Marco arrived.</small></td><td><span class="hl">Mentre leggevo</span>…<br><small>While I was reading…</small></td></tr>
+          </table>
+          <div class="callout">Rule of thumb: <b>imperfetto</b> sets the scene ("was doing / used to"); <b>passato prossimo</b> is the thing that then happened.</div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay"></div>
+
+<script>
+const PRONOUNS = ["io","tu","lui / lei","noi","voi","loro"];
+
+const REGULAR = [
+  {inf:"parlare", gloss:"to speak", badge:"-are", aux:"avere", part:"parlato",
+    presente:["parlo","parli","parla","parliamo","parlate","parlano"],
+    imperfetto:["parlavo","parlavi","parlava","parlavamo","parlavate","parlavano"],
+    futuro:["parlerò","parlerai","parlerà","parleremo","parlerete","parleranno"],
+    condizionale:["parlerei","parleresti","parlerebbe","parleremmo","parlereste","parlerebbero"],
+    congiuntivo:["parli","parli","parli","parliamo","parliate","parlino"]},
+  {inf:"credere", gloss:"to believe", badge:"-ere", aux:"avere", part:"creduto",
+    presente:["credo","credi","crede","crediamo","credete","credono"],
+    imperfetto:["credevo","credevi","credeva","credevamo","credevate","credevano"],
+    futuro:["crederò","crederai","crederà","crederemo","crederete","crederanno"],
+    condizionale:["crederei","crederesti","crederebbe","crederemmo","credereste","crederebbero"],
+    congiuntivo:["creda","creda","creda","crediamo","crediate","credano"]},
+  {inf:"dormire", gloss:"to sleep", badge:"-ire", aux:"avere", part:"dormito",
+    presente:["dormo","dormi","dorme","dormiamo","dormite","dormono"],
+    imperfetto:["dormivo","dormivi","dormiva","dormivamo","dormivate","dormivano"],
+    futuro:["dormirò","dormirai","dormirà","dormiremo","dormirete","dormiranno"],
+    condizionale:["dormirei","dormiresti","dormirebbe","dormiremmo","dormireste","dormirebbero"],
+    congiuntivo:["dorma","dorma","dorma","dormiamo","dormiate","dormano"]},
+  {inf:"capire", gloss:"to understand", badge:"-ire (isc)", aux:"avere", part:"capito",
+    presente:["capisco","capisci","capisce","capiamo","capite","capiscono"],
+    imperfetto:["capivo","capivi","capiva","capivamo","capivate","capivano"],
+    futuro:["capirò","capirai","capirà","capiremo","capirete","capiranno"],
+    condizionale:["capirei","capiresti","capirebbe","capiremmo","capireste","capirebbero"],
+    congiuntivo:["capisca","capisca","capisca","capiamo","capiate","capiscano"]}
+];
+
+const IRREGULAR = [
+  {inf:"essere", gloss:"to be", aux:"essere", part:"stato",
+    presente:["sono","sei","è","siamo","siete","sono"],
+    imperfetto:["ero","eri","era","eravamo","eravate","erano"],
+    futuro:["sarò","sarai","sarà","saremo","sarete","saranno"],
+    condizionale:["sarei","saresti","sarebbe","saremmo","sareste","sarebbero"],
+    congiuntivo:["sia","sia","sia","siamo","siate","siano"]},
+  {inf:"avere", gloss:"to have", aux:"avere", part:"avuto",
+    presente:["ho","hai","ha","abbiamo","avete","hanno"],
+    imperfetto:["avevo","avevi","aveva","avevamo","avevate","avevano"],
+    futuro:["avrò","avrai","avrà","avremo","avrete","avranno"],
+    condizionale:["avrei","avresti","avrebbe","avremmo","avreste","avrebbero"],
+    congiuntivo:["abbia","abbia","abbia","abbiamo","abbiate","abbiano"]},
+  {inf:"fare", gloss:"to do / make", aux:"avere", part:"fatto",
+    presente:["faccio","fai","fa","facciamo","fate","fanno"],
+    imperfetto:["facevo","facevi","faceva","facevamo","facevate","facevano"],
+    futuro:["farò","farai","farà","faremo","farete","faranno"],
+    condizionale:["farei","faresti","farebbe","faremmo","fareste","farebbero"],
+    congiuntivo:["faccia","faccia","faccia","facciamo","facciate","facciano"]},
+  {inf:"andare", gloss:"to go", aux:"essere", part:"andato",
+    presente:["vado","vai","va","andiamo","andate","vanno"],
+    imperfetto:["andavo","andavi","andava","andavamo","andavate","andavano"],
+    futuro:["andrò","andrai","andrà","andremo","andrete","andranno"],
+    condizionale:["andrei","andresti","andrebbe","andremmo","andreste","andrebbero"],
+    congiuntivo:["vada","vada","vada","andiamo","andiate","vadano"]},
+  {inf:"stare", gloss:"to stay / be", aux:"essere", part:"stato",
+    presente:["sto","stai","sta","stiamo","state","stanno"],
+    imperfetto:["stavo","stavi","stava","stavamo","stavate","stavano"],
+    futuro:["starò","starai","starà","staremo","starete","staranno"],
+    condizionale:["starei","staresti","starebbe","staremmo","stareste","starebbero"],
+    congiuntivo:["stia","stia","stia","stiamo","stiate","stiano"]},
+  {inf:"dare", gloss:"to give", aux:"avere", part:"dato",
+    presente:["do","dai","dà","diamo","date","danno"],
+    imperfetto:["davo","davi","dava","davamo","davate","davano"],
+    futuro:["darò","darai","darà","daremo","darete","daranno"],
+    condizionale:["darei","daresti","darebbe","daremmo","dareste","darebbero"],
+    congiuntivo:["dia","dia","dia","diamo","diate","diano"]},
+  {inf:"dire", gloss:"to say / tell", aux:"avere", part:"detto",
+    presente:["dico","dici","dice","diciamo","dite","dicono"],
+    imperfetto:["dicevo","dicevi","diceva","dicevamo","dicevate","dicevano"],
+    futuro:["dirò","dirai","dirà","diremo","direte","diranno"],
+    condizionale:["direi","diresti","direbbe","diremmo","direste","direbbero"],
+    congiuntivo:["dica","dica","dica","diciamo","diciate","dicano"]},
+  {inf:"potere", gloss:"to be able / can", aux:"avere", part:"potuto",
+    presente:["posso","puoi","può","possiamo","potete","possono"],
+    imperfetto:["potevo","potevi","poteva","potevamo","potevate","potevano"],
+    futuro:["potrò","potrai","potrà","potremo","potrete","potranno"],
+    condizionale:["potrei","potresti","potrebbe","potremmo","potreste","potrebbero"],
+    congiuntivo:["possa","possa","possa","possiamo","possiate","possano"]},
+  {inf:"volere", gloss:"to want", aux:"avere", part:"voluto",
+    presente:["voglio","vuoi","vuole","vogliamo","volete","vogliono"],
+    imperfetto:["volevo","volevi","voleva","volevamo","volevate","volevano"],
+    futuro:["vorrò","vorrai","vorrà","vorremo","vorrete","vorranno"],
+    condizionale:["vorrei","vorresti","vorrebbe","vorremmo","vorreste","vorrebbero"],
+    congiuntivo:["voglia","voglia","voglia","vogliamo","vogliate","vogliano"]},
+  {inf:"dovere", gloss:"to have to / must", aux:"avere", part:"dovuto",
+    presente:["devo","devi","deve","dobbiamo","dovete","devono"],
+    imperfetto:["dovevo","dovevi","doveva","dovevamo","dovevate","dovevano"],
+    futuro:["dovrò","dovrai","dovrà","dovremo","dovrete","dovranno"],
+    condizionale:["dovrei","dovresti","dovrebbe","dovremmo","dovreste","dovrebbero"],
+    congiuntivo:["debba","debba","debba","dobbiamo","dobbiate","debbano"]},
+  {inf:"sapere", gloss:"to know", aux:"avere", part:"saputo",
+    presente:["so","sai","sa","sappiamo","sapete","sanno"],
+    imperfetto:["sapevo","sapevi","sapeva","sapevamo","sapevate","sapevano"],
+    futuro:["saprò","saprai","saprà","sapremo","saprete","sapranno"],
+    condizionale:["saprei","sapresti","saprebbe","sapremmo","sapreste","saprebbero"],
+    congiuntivo:["sappia","sappia","sappia","sappiamo","sappiate","sappiano"]},
+  {inf:"venire", gloss:"to come", aux:"essere", part:"venuto",
+    presente:["vengo","vieni","viene","veniamo","venite","vengono"],
+    imperfetto:["venivo","venivi","veniva","venivamo","venivate","venivano"],
+    futuro:["verrò","verrai","verrà","verremo","verrete","verranno"],
+    condizionale:["verrei","verresti","verrebbe","verremmo","verreste","verrebbero"],
+    congiuntivo:["venga","venga","venga","veniamo","veniate","vengano"]},
+  {inf:"uscire", gloss:"to go out", aux:"essere", part:"uscito",
+    presente:["esco","esci","esce","usciamo","uscite","escono"],
+    imperfetto:["uscivo","uscivi","usciva","uscivamo","uscivate","uscivano"],
+    futuro:["uscirò","uscirai","uscirà","usciremo","uscirete","usciranno"],
+    condizionale:["uscirei","usciresti","uscirebbe","usciremmo","uscireste","uscirebbero"],
+    congiuntivo:["esca","esca","esca","usciamo","usciate","escano"]},
+  {inf:"bere", gloss:"to drink", aux:"avere", part:"bevuto",
+    presente:["bevo","bevi","beve","beviamo","bevete","bevono"],
+    imperfetto:["bevevo","bevevi","beveva","bevevamo","bevevate","bevevano"],
+    futuro:["berrò","berrai","berrà","berremo","berrete","berranno"],
+    condizionale:["berrei","berresti","berrebbe","berremmo","berreste","berrebbero"],
+    congiuntivo:["beva","beva","beva","beviamo","beviate","bevano"]}
+];
+
+const ALL = REGULAR.concat(IRREGULAR);
+const findVerb = inf => ALL.find(v=>v.inf===inf);
+
+const AVERE = ["ho","hai","ha","abbiamo","avete","hanno"];
+const ESSERE = ["sono","sei","è","siamo","siete","sono"];
+function passato(v){
+  const aux = v.aux === "essere" ? ESSERE : AVERE;
+  return aux.map((a,i)=>{
+    let p = v.part;
+    if(v.aux === "essere")
+      p = (i<3) ? v.part + " / " + v.part.slice(0,-1)+"a"
+                : v.part.slice(0,-1)+"i / " + v.part.slice(0,-1)+"e";
+    return a + " " + p;
+  });
+}
+function formsFor(v, tense){ return tense === "passato" ? passato(v) : v[tense]; }
+
+const ENDINGS = {
+  presente:{cols:["-are","-ere","-ire","-ire (isc)"], rows:[
+    ["-o","-o","-o","-isco"],["-i","-i","-i","-isci"],["-a","-e","-e","-isce"],
+    ["-iamo","-iamo","-iamo","-iamo"],["-ate","-ete","-ite","-ite"],["-ano","-ono","-ono","-iscono"]]},
+  imperfetto:{cols:["-are","-ere","-ire"], rows:[
+    ["-avo","-evo","-ivo"],["-avi","-evi","-ivi"],["-ava","-eva","-iva"],
+    ["-avamo","-evamo","-ivamo"],["-avate","-evate","-ivate"],["-avano","-evano","-ivano"]]},
+  futuro:{cols:["-are","-ere","-ire"], rows:[
+    ["-erò","-erò","-irò"],["-erai","-erai","-irai"],["-erà","-erà","-irà"],
+    ["-eremo","-eremo","-iremo"],["-erete","-erete","-irete"],["-eranno","-eranno","-iranno"]]},
+  condizionale:{cols:["-are","-ere","-ire"], rows:[
+    ["-erei","-erei","-irei"],["-eresti","-eresti","-iresti"],["-erebbe","-erebbe","-irebbe"],
+    ["-eremmo","-eremmo","-iremmo"],["-ereste","-ereste","-ireste"],["-erebbero","-erebbero","-irebbero"]]},
+  congiuntivo:{cols:["-are","-ere","-ire","-ire (isc)"], rows:[
+    ["-i","-a","-a","-isca"],["-i","-a","-a","-isca"],["-i","-a","-a","-isca"],
+    ["-iamo","-iamo","-iamo","-iamo"],["-iate","-iate","-iate","-iate"],["-ino","-ano","-ano","-iscano"]]}
+};
+const TENSE_INTRO = {
+  presente:"Endings added to the stem. io, tu and noi are identical in all three families.",
+  imperfetto:"Very regular — theme vowel (a / e / i) then -vo, -vi, -va, -vamo, -vate, -vano.",
+  futuro:"Infinitive minus final -e + shared endings -ò -ai -à -emo -ete -anno. capire → capirò. -are/-ere match; -ire swaps the vowel.",
+  condizionale:"The 'would' form — same stem as the futuro + endings -ei -esti -ebbe -emmo -este -ebbero. -are/-ere match; -ire swaps the vowel.",
+  congiuntivo:"Subjunctive (after penso che, voglio che…). io, tu and lui/lei are identical within each verb; noi -iamo and voi -iate are shared by all families."
+};
+const TENSE_TITLE = {presente:"Present",imperfetto:"Imperfetto",futuro:"Futuro",condizionale:"Condizionale",congiuntivo:"Congiuntivo"};
+const tenseLabels = {presente:"Present", passato:"Passato prossimo", imperfetto:"Imperfetto", futuro:"Futuro", condizionale:"Condizionale", congiuntivo:"Congiuntivo"};
+
+function badgeClass(v){
+  if(v.badge && v.badge.startsWith("-are")) return "are";
+  if(v.badge && v.badge.startsWith("-ere")) return "ere";
+  if(v.badge && v.badge.startsWith("-ire")) return "ire";
+  return "irr";
+}
+function badgeText(v){ return v.badge || "irregular"; }
+
+/* ---------- audio ---------- */
+function speak(text){
+  if(!("speechSynthesis" in window)) return;
+  const u = new SpeechSynthesisUtterance(text.split(" / ")[0]);
+  u.lang = "it-IT"; u.rate = 0.9;
+  window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
+}
+document.body.addEventListener("click", e=>{
+  const b = e.target.closest(".spk");
+  if(b){ speak(b.dataset.say); }
+});
+
+/* ============================================================ REFERENCE */
+let currentTense = "presente";
+const refBody = document.getElementById("refBody");
+const patternBox = document.getElementById("patternBox");
+const searchBox = document.getElementById("searchBox");
+
+function renderPattern(){
+  if(currentTense === "passato"){
+    patternBox.innerHTML = `<div class="pattern-card">
+      <h3>How the passato prossimo is built</h3>
+      <div class="sub">Present of <b>avere</b> (or <b>essere</b>) + the <b>past participle</b>. Endings: -are → <b>-ato</b>, -ere → <b>-uto</b>, -ire → <b>-ito</b>. The -isc- of capisco is present-tense only — the participle is simply <b>capito</b>.</div>
+      <table class="pattern"><thead><tr><th>person</th><th class="fe">auxiliary</th><th class="fa">participle</th><th>meaning</th></tr></thead><tbody>
+        <tr><td class="p">io</td><td class="fe">ho</td><td class="fa k">capito</td><td class="p">I have understood</td></tr>
+        <tr><td class="p">tu</td><td class="fe">hai</td><td class="fa k">capito</td><td class="p">you have understood</td></tr>
+        <tr><td class="p">lui / lei</td><td class="fe">ha</td><td class="fa k">capito</td><td class="p">he / she has understood</td></tr>
+        <tr><td class="p">noi</td><td class="fe">abbiamo</td><td class="fa k">capito</td><td class="p">we have understood</td></tr>
+        <tr><td class="p">voi</td><td class="fe">avete</td><td class="fa k">capito</td><td class="p">you (pl.) have understood</td></tr>
+        <tr><td class="p">loro</td><td class="fe">hanno</td><td class="fa k">capito</td><td class="p">they have understood</td></tr>
+      </tbody></table>
+      <div class="legend"><span><i style="background:#ccd4f4"></i>auxiliary changes with the person</span>
+      <span><i style="background:#c7e8d4"></i>participle stays the same (with avere)</span></div>
+      <div class="sub" style="margin-top:10px;">With <b>essere</b> verbs the participle <b>agrees</b> with the subject: sono andato / andata / andati / andate.</div>
+    </div>`;
+    return;
+  }
+  const FAM = ["fa","fe","fi","fx"];
+  const E = ENDINGS[currentTense];
+  let head = `<th>person</th>` + E.cols.map((c,ci)=>`<th class="${FAM[ci]}">${c}</th>`).join("");
+  let body = E.rows.map((r,ri)=>{
+    const base = r[0]===r[1] && r[1]===r[2];
+    const cells = r.map((val,ci)=>{
+      let cls = FAM[ci];
+      if(base && (ci<3 || (ci===3 && r[3]===r[0]))) cls += " k";
+      else if(ci<3){
+        if((ci===0 && r[0]===r[1]) || (ci===1 && (r[1]===r[0]||r[1]===r[2])) || (ci===2 && r[2]===r[1])) cls += " d2";
+      }
+      return `<td class="${cls}">${val}</td>`;
+    }).join("");
+    return `<tr><td class="p">${PRONOUNS[ri]}</td>${cells}</tr>`;
+  }).join("");
+  patternBox.innerHTML = `<div class="pattern-card">
+    <h3>${TENSE_TITLE[currentTense]} endings</h3>
+    <div class="sub">${TENSE_INTRO[currentTense]}</div>
+    <table class="pattern"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>
+    <div class="legend">
+      <span><i style="background:#c7e8d4"></i>-are</span>
+      <span><i style="background:#ccd4f4"></i>-ere</span>
+      <span><i style="background:#f8d1da"></i>-ire</span>
+      <span><b>Bold</b> = same in all families</span>
+      <span><u>underline</u> = shared by two</span>
+    </div>
+  </div>`;
+}
+
+function verbCard(v){
+  const forms = formsFor(v, currentTense);
+  const rows = PRONOUNS.map((p,i)=>`<tr><td class="pron">${p}</td>
+    <td class="form"><button class="spk" data-say="${forms[i]}" aria-label="hear">🔈</button><span>${forms[i]}</span></td></tr>`).join("");
+  const auxNote = currentTense === "passato"
+    ? `<div class="aux-note">Auxiliary: <strong>${v.aux}</strong> &nbsp;·&nbsp; participle: <strong>${v.part}</strong>${v.aux==="essere"?" (agrees with subject)":""}</div>` : "";
+  return `<div class="card fam-${badgeClass(v)}" data-inf="${v.inf}">
+    <div class="card-head">
+      <div><div class="verb">${v.inf}</div><div class="gloss">${v.gloss}</div></div>
+      <div class="badge ${badgeClass(v)}">${badgeText(v)}</div>
+    </div>
+    <table class="conj">${rows}</table>${auxNote}
+    <div class="card-hint">tap for all tenses</div>
+  </div>`;
+}
+
+function renderReference(){
+  renderPattern();
+  const q = searchBox.value.trim().toLowerCase();
+  const match = v => !q || v.inf.toLowerCase().includes(q) || v.gloss.toLowerCase().includes(q);
+  const reg = REGULAR.filter(match), irr = IRREGULAR.filter(match);
+  let html = "";
+  if(reg.length) html += `<div class="section-label">Regular verbs — the patterns</div><div class="grid">${reg.map(verbCard).join("")}</div>`;
+  if(irr.length) html += `<div class="section-label">Most-used irregular verbs</div><div class="grid">${irr.map(verbCard).join("")}</div>`;
+  if(!reg.length && !irr.length){ html = `<div class="empty">No verb matches “${searchBox.value}”.</div>`; patternBox.innerHTML=""; }
+  refBody.innerHTML = html;
+}
+searchBox.addEventListener("input", renderReference);
+document.querySelectorAll("#tenseSeg button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("#tenseSeg button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active"); currentTense = b.dataset.tense; renderReference();
+  });
+});
+
+/* ---------- verb detail overlay ---------- */
+const overlay = document.getElementById("overlay");
+const DETAIL_TENSES = [["presente","Present"],["passato","Passato pross."],["imperfetto","Imperfetto"],["futuro","Futuro"],["condizionale","Condizionale"],["congiuntivo","Congiuntivo"]];
+function openDetail(inf){
+  const v = findVerb(inf); if(!v) return;
+  const head = `<th>person</th>` + DETAIL_TENSES.map(c=>`<th>${c[1]}</th>`).join("");
+  const rows = PRONOUNS.map((p,i)=>{
+    const tds = DETAIL_TENSES.map(c=>{ const f = formsFor(v,c[0])[i]; return `<td class="spk" data-say="${f}">${f}</td>`; }).join("");
+    return `<tr><td>${p}</td>${tds}</tr>`;
+  }).join("");
+  overlay.innerHTML = `<div class="detail">
+    <div class="detail-head"><div><span class="verb">${v.inf}</span> <span class="gloss">${v.gloss}</span> <span class="badge ${badgeClass(v)}">${badgeText(v)}</span></div><button class="x" id="ovClose" aria-label="close">×</button></div>
+    <div class="detail-scroll"><table class="detail-t"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="tap-hint">Tap any form to hear it.${v.aux==="essere"?" Passato uses <b>essere</b> — the participle agrees with the subject.":""}</div>
+  </div>`;
+  overlay.classList.add("on");
+}
+refBody.addEventListener("click", e=>{
+  if(e.target.closest(".spk")) return;
+  const card = e.target.closest(".card");
+  if(card) openDetail(card.dataset.inf);
+});
+overlay.addEventListener("click", e=>{ if(e.target===overlay || e.target.id==="ovClose") overlay.classList.remove("on"); });
+
+/* ============================================================ NAV */
+document.querySelectorAll("nav > button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("nav > button").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById(b.dataset.view).classList.add("active");
+  });
+});
+document.querySelectorAll("#gMenu button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("#gMenu button").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".gpanel").forEach(p=>p.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById(b.dataset.panel).classList.add("active");
+  });
+});
+
+/* ============================================================ PRACTICE */
+const qTense=document.getElementById("qTense"), qVerb=document.getElementById("qVerb"),
+  qGloss=document.getElementById("qGloss"), qPron=document.getElementById("qPron"),
+  qBadge=document.getElementById("qBadge"), qInput=document.getElementById("qInput"),
+  qCheck=document.getElementById("qCheck"), qFeedback=document.getElementById("qFeedback"),
+  typeBlock=document.getElementById("typeBlock"), mcBlock=document.getElementById("mcBlock"),
+  mcOptions=document.getElementById("mcOptions"), mcNext=document.getElementById("mcNext"),
+  accentBar=document.getElementById("accentBar"), missCountEl=document.getElementById("missCount");
+
+let pTenses = new Set(["presente"]);
+let pPools = new Set(["regular","irregular"]);
+let pMode = "type", pFocus = "all";
+let score = {correct:0,total:0,streak:0};
+let mistakes = {};
+let current = null, answered = false;
+
+/* storage */
+function saveState(){
+  try{
+    localStorage.setItem("itg.score", JSON.stringify(score));
+    localStorage.setItem("itg.mistakes", JSON.stringify(mistakes));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    const s=JSON.parse(localStorage.getItem("itg.score")); if(s) score=s;
+    const m=JSON.parse(localStorage.getItem("itg.mistakes")); if(m) mistakes=m;
+  }catch(e){}
+}
+function updateStats(){
+  document.getElementById("sCorrect").textContent=score.correct;
+  document.getElementById("sTotal").textContent=score.total;
+  document.getElementById("sStreak").textContent=score.streak;
+  missCountEl.textContent=Object.keys(mistakes).length;
+}
+
+function pool(){
+  let arr=[];
+  if(pPools.has("regular")) arr=arr.concat(REGULAR);
+  if(pPools.has("irregular")) arr=arr.concat(IRREGULAR);
+  return arr;
+}
+function normalise(s){ return s.trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," "); }
+function acceptable(input, answer){
+  const strip = x => x.normalize("NFD").replace(/[̀-ͯ]/g,"");
+  const clean = s => strip(normalise(s));
+  let accepted=[];
+  if(answer.includes(" / ")){
+    const parts=answer.split(" "), aux=parts[0], rest=parts.slice(1).join(" ");
+    rest.split(" / ").forEach(v=> accepted.push(aux+" "+v));
+  } else accepted.push(answer);
+  const inC=clean(input);
+  return accepted.some(a=> clean(a)===inC);
+}
+function clearFeedback(){ qFeedback.textContent=""; qFeedback.className="feedback"; }
+
+function nextQuestion(){
+  const verbs=pool(), tenses=[...pTenses];
+  let pick=null;
+  if(pFocus==="mistakes"){
+    const items=Object.keys(mistakes).map(k=>{const a=k.split("|");return{inf:a[0],tense:a[1],idx:+a[2]};})
+      .filter(it=> tenses.includes(it.tense) && verbs.some(v=>v.inf===it.inf));
+    if(items.length){ const it=items[Math.floor(Math.random()*items.length)]; pick={verb:findVerb(it.inf),tense:it.tense,idx:it.idx}; }
+  }
+  if(!pick){
+    if(pFocus==="mistakes"){ showEmpty(); return; }
+    const v=verbs[Math.floor(Math.random()*verbs.length)];
+    const tense=tenses[Math.floor(Math.random()*tenses.length)];
+    pick={verb:v,tense,idx:Math.floor(Math.random()*6)};
+  }
+  current={verb:pick.verb,tense:pick.tense,idx:pick.idx,answer:formsFor(pick.verb,pick.tense)[pick.idx]};
+  renderPrompt();
+}
+function showEmpty(){
+  current=null;
+  qTense.textContent=""; qBadge.textContent="";
+  qVerb.textContent="—"; qGloss.textContent="No saved mistakes yet — practise in “All verbs” first."; qPron.textContent="";
+  typeBlock.style.display="none"; mcBlock.style.display="none"; clearFeedback();
+}
+function renderPrompt(){
+  const {verb,tense,idx}=current;
+  qTense.textContent=tenseLabels[tense];
+  qVerb.textContent=verb.inf; qGloss.textContent=verb.gloss;
+  qPron.textContent=PRONOUNS[idx]; qBadge.textContent=verb.badge||"irregular";
+  clearFeedback();
+  if(pMode==="type"){
+    typeBlock.style.display=""; mcBlock.style.display="none";
+    qInput.value=""; qInput.className="quiz-input"; qInput.disabled=false; qInput.focus();
+    qCheck.textContent="Check"; qCheck.dataset.mode="check";
+  } else {
+    typeBlock.style.display="none"; mcBlock.style.display="";
+    const opts=buildMC();
+    mcOptions.innerHTML=opts.map(o=>`<button data-val="${o}">${o}</button>`).join("");
+    mcNext.style.display="none"; answered=false;
+  }
+}
+function buildMC(){
+  const {verb,tense,idx,answer}=current;
+  const opts=new Set([answer]);
+  formsFor(verb,tense).forEach(f=>{ if(opts.size<4 && f!==answer) opts.add(f); });
+  let g=0;
+  while(opts.size<4 && g<300){
+    const rv=ALL[Math.floor(Math.random()*ALL.length)];
+    const rf=formsFor(rv,tense)[idx];
+    if(rf && rf!==answer) opts.add(rf);
+    g++;
+  }
+  const arr=[...opts];
+  for(let k=arr.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [arr[k],arr[j]]=[arr[j],arr[k]]; }
+  return arr;
+}
+function evaluate(userStr){
+  const ok=acceptable(userStr,current.answer);
+  score.total++; if(ok){score.correct++;score.streak++;} else score.streak=0;
+  const key=current.verb.inf+"|"+current.tense+"|"+current.idx;
+  if(ok){ if(mistakes[key]) delete mistakes[key]; }
+  else { mistakes[key]=(mistakes[key]||0)+1; }
+  saveState(); updateStats(); return ok;
+}
+function answerHTML(ok){
+  return (ok?"Corretto! ✓ ":`Answer: <span class="answer">${current.answer}</span> `)+
+    `<button class="spk" data-say="${current.answer}">🔈</button>`;
+}
+function typeCheck(){
+  if(!current) return;
+  const ok=evaluate(qInput.value);
+  qInput.disabled=true; qInput.classList.add(ok?"correct":"wrong");
+  qFeedback.className="feedback "+(ok?"ok":"no"); qFeedback.innerHTML=answerHTML(ok);
+  qCheck.textContent="Next →"; qCheck.dataset.mode="next";
+}
+qCheck.addEventListener("click", ()=>{
+  if(qCheck.dataset.mode==="next") nextQuestion(); else typeCheck();
+});
+qInput.addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); qCheck.click(); } });
+mcOptions.addEventListener("click", e=>{
+  const b=e.target.closest("button"); if(!b || answered || !current) return;
+  answered=true;
+  const ok=evaluate(b.dataset.val);
+  [...mcOptions.children].forEach(btn=>{
+    btn.disabled=true;
+    if(acceptable(btn.dataset.val,current.answer)) btn.classList.add("correct");
+    else if(btn===b) btn.classList.add("wrong");
+  });
+  qFeedback.className="feedback "+(ok?"ok":"no"); qFeedback.innerHTML=answerHTML(ok);
+  mcNext.style.display="";
+});
+mcNext.addEventListener("click", nextQuestion);
+
+document.querySelectorAll("#pMode .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{
+    document.querySelectorAll("#pMode .chip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on"); pMode=c.dataset.mode; nextQuestion();
+  });
+});
+document.querySelectorAll("#pFocus .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{
+    document.querySelectorAll("#pFocus .chip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on"); pFocus=c.dataset.focus; nextQuestion();
+  });
+});
+document.querySelectorAll("#pTense .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{
+    const t=c.dataset.tense;
+    if(pTenses.has(t) && pTenses.size>1){ pTenses.delete(t); c.classList.remove("on"); }
+    else { pTenses.add(t); c.classList.add("on"); }
+    nextQuestion();
+  });
+});
+document.querySelectorAll("#pPool .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{
+    const p=c.dataset.pool;
+    if(pPools.has(p) && pPools.size>1){ pPools.delete(p); c.classList.remove("on"); }
+    else { pPools.add(p); c.classList.add("on"); }
+    nextQuestion();
+  });
+});
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  score={correct:0,total:0,streak:0}; mistakes={}; saveState(); updateStats();
+  if(pFocus==="mistakes"){ pFocus="all";
+    document.querySelectorAll("#pFocus .chip").forEach(x=>x.classList.toggle("on",x.dataset.focus==="all")); }
+  nextQuestion();
+});
+
+/* accent bar */
+function insertAccent(ch){
+  const s=qInput.selectionStart, e=qInput.selectionEnd;
+  qInput.value=qInput.value.slice(0,s)+ch+qInput.value.slice(e);
+  qInput.selectionStart=qInput.selectionEnd=s+ch.length; qInput.focus();
+}
+["à","è","é","ì","ò","ù"].forEach(ch=>{
+  const b=document.createElement("button"); b.type="button"; b.textContent=ch;
+  b.addEventListener("click", ()=>insertAccent(ch)); accentBar.appendChild(b);
+});
+
+/* ---------- INIT ---------- */
+loadState(); updateStats();
+renderReference();
+nextQuestion();
+</script>
+</body>
+</html>
