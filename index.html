@@ -36,7 +36,7 @@
   main{max-width:1100px;margin:0 auto;padding:20px 20px 60px;}
   .view{display:none;} .view.active{display:block;animation:fade .25s ease;}
   @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-  .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:8px;}
+  .toolbar{position:sticky;top:var(--hh,72px);z-index:15;background:var(--bg);display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:10px 0;margin-bottom:0;}
   .search{flex:1;min-width:200px;position:relative;}
   .search input{width:100%;font-size:16px;font-family:inherit;padding:12px 14px 12px 40px;
     border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);}
@@ -73,6 +73,7 @@
   .card.fam-are{border-left-color:#0d8a4f;} .card.fam-ere{border-left-color:#3d47a8;}
   .card.fam-ire{border-left-color:#c8102e;} .card.fam-irr{border-left-color:#cf8a2a;}
   .card-head{padding:14px 16px 12px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+  .card-tense{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green-dark);background:#eef6f1;padding:5px 16px;border-bottom:1px solid #f1ede4;}
   .verb{font-size:19px;font-weight:700;} .gloss{font-size:13px;color:var(--muted);font-style:italic;}
   .badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap;}
   .badge.are{background:#e6f4ec;color:var(--green-dark);} .badge.ere{background:#eef0fb;color:#3d47a8;}
@@ -148,6 +149,10 @@
   .fam-pill.are{background:#e6f4ec;color:#0a6e3f;} .fam-pill.ere{background:#eef0fb;color:#343e9c;} .fam-pill.ire{background:#fdeef1;color:#a81430;}
   .callout{background:var(--tier-soft,#eef5f0);border-left:3px solid var(--tier,var(--green));border-radius:8px;padding:12px 14px;margin:6px 0 16px;font-size:14px;color:#3a3830;}
   .empty{text-align:center;color:var(--muted);padding:50px 20px;}
+  .start-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+  .goto{appearance:none;border:none;font-family:inherit;font-size:15px;font-weight:700;padding:12px 18px;border-radius:12px;cursor:pointer;background:var(--green);color:#fff;}
+  .goto.alt{background:#eceff2;color:var(--ink);}
+  #start .prose h3{color:var(--green-dark);}
   /* detail overlay */
   .overlay{position:fixed;inset:0;background:rgba(30,25,15,.45);display:none;align-items:flex-start;justify-content:center;z-index:50;padding:24px 12px;overflow:auto;}
   .overlay.on{display:flex;}
@@ -173,15 +178,79 @@
     <h1>Grammatica<small>Italian verbs &amp; grammar</small></h1>
   </div>
   <nav>
-    <button data-view="reference" class="active">Reference</button>
+    <button data-view="start" class="active">Start here</button>
+    <button data-view="reference">Reference</button>
     <button data-view="practice">Practice</button>
     <button data-view="grammar">Grammar</button>
   </nav>
 </header>
 
 <main>
+  <!-- ============ START HERE ============ -->
+  <section id="start" class="view active">
+    <div style="max-width:780px;margin:0 auto;">
+      <div class="prose t-found">
+        <h2>Start here</h2>
+        <p>New to Italian, or to grammar in general? This page explains everything in plain English, one small step at a time. Read it once, then explore the other tabs. Nothing here assumes you already know the words.</p>
+
+        <h3>1. What is a verb?</h3>
+        <p>A verb is a "doing" or "being" word — <em>to speak, to eat, to sleep, to be</em>. In Italian, "to speak" is <strong>parlare</strong>.</p>
+
+        <h3>2. What does "conjugating" mean?</h3>
+        <p>It simply means changing the verb to match <strong>who</strong> is doing the action. In English the verb barely changes — <em>I speak, you speak, we speak</em>. In Italian the <strong>ending</strong> changes for each person: <em>io parl<span class="hl">o</span>, tu parl<span class="hl">i</span>, noi parl<span class="hl">iamo</span></em>. Learning those endings is what this app is for.</p>
+
+        <h3>3. Every verb is one of three types</h3>
+        <p>Look at the last three letters of the verb. Italian verbs end in <span class="fam-pill are">-are</span>, <span class="fam-pill ere">-ere</span> or <span class="fam-pill ire">-ire</span>:</p>
+        <ul>
+          <li><strong>parlare</strong> (to speak) — an <span class="fam-pill are">-are</span> verb</li>
+          <li><strong>credere</strong> (to believe) — an <span class="fam-pill ere">-ere</span> verb</li>
+          <li><strong>dormire</strong> (to sleep) — an <span class="fam-pill ire">-ire</span> verb</li>
+        </ul>
+        <p>Each type follows its own regular pattern. Throughout the app these three colours always mean the same three families, so you can tell them apart at a glance.</p>
+
+        <h3>4. How a verb is built: stem + ending</h3>
+        <p>Take off the last three letters to get the <strong>stem</strong>, then add a new ending for each person:</p>
+        <div class="callout">parlare → drop <em>-are</em> → stem <strong>parl-</strong> → io <strong>parl</strong><span class="hl">o</span>, tu <strong>parl</strong><span class="hl">i</span>, noi <strong>parl</strong><span class="hl">iamo</span>.<br>The stem stays the same; only the ending changes.</div>
+
+        <h3>5. Who is doing it</h3>
+        <p>Every verb has six forms — one for each "person". They always appear in this order:</p>
+        <table class="gtable">
+          <tr><th>Italian</th><th>English</th></tr>
+          <tr><td>io</td><td>I</td></tr>
+          <tr><td>tu</td><td>you (one person)</td></tr>
+          <tr><td>lui / lei</td><td>he / she</td></tr>
+          <tr><td>noi</td><td>we</td></tr>
+          <tr><td>voi</td><td>you (more than one)</td></tr>
+          <tr><td>loro</td><td>they</td></tr>
+        </table>
+        <p>Tip: Italian usually <strong>leaves out</strong> these words, because the ending already tells you who — <em>parlo</em> on its own means "I speak".</p>
+
+        <h3>6. When it happens: tenses</h3>
+        <p>A "tense" is just <strong>when</strong> the action happens:</p>
+        <ul>
+          <li><strong>Present</strong> — now: <em>I speak</em></li>
+          <li><strong>Past</strong> — before: <em>I spoke</em></li>
+          <li><strong>Future</strong> — later: <em>I will speak</em></li>
+        </ul>
+        <p>Start with the present. The other tenses build on the same idea once it feels comfortable.</p>
+
+        <h3>7. How to use this app</h3>
+        <ul>
+          <li><strong>Grammar</strong> — short, simple lessons. Start here if it's all new: begin with "Masculine &amp; feminine", then work down to the verb sections.</li>
+          <li><strong>Reference</strong> — see verbs fully conjugated. Pick a tense along the top; each card shows one verb, and the tense you're viewing is labelled on every card.</li>
+          <li><strong>Practice</strong> — test yourself when you're ready, by typing or by multiple choice.</li>
+        </ul>
+
+        <div class="start-btns">
+          <button class="goto" data-view="grammar">Start with the basics →</button>
+          <button class="goto alt" data-view="reference">See the verbs →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ REFERENCE ============ -->
-  <section id="reference" class="view active">
+  <section id="reference" class="view">
     <div class="toolbar">
       <div class="search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -765,6 +834,7 @@ function verbCard(v){
       <div><div class="verb">${v.inf}</div><div class="gloss">${v.gloss}</div></div>
       <div class="badge ${badgeClass(v)}">${badgeText(v)}</div>
     </div>
+    <div class="card-tense">${tenseLabels[currentTense]}</div>
     <table class="conj">${rows}</table>${auxNote}
     <div class="card-hint">tap for all tenses</div>
   </div>`;
@@ -820,6 +890,12 @@ document.querySelectorAll("nav > button").forEach(b=>{
     document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
     b.classList.add("active");
     document.getElementById(b.dataset.view).classList.add("active");
+  });
+});
+document.querySelectorAll(".goto").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    const tab=document.querySelector(`nav > button[data-view="${b.dataset.view}"]`);
+    if(tab){ tab.click(); window.scrollTo(0,0); }
   });
 });
 document.querySelectorAll("#gMenu button").forEach(b=>{
@@ -1025,8 +1101,17 @@ function insertAccent(ch){
   b.addEventListener("click", ()=>insertAccent(ch)); accentBar.appendChild(b);
 });
 
+/* ---------- keep tense selector below the sticky header ---------- */
+function setHH(){
+  const h=document.querySelector("header");
+  if(h) document.documentElement.style.setProperty("--hh", h.offsetHeight+"px");
+}
+window.addEventListener("resize", setHH);
+window.addEventListener("orientationchange", setHH);
+
 /* ---------- INIT ---------- */
 loadState(); updateStats();
+setHH();
 renderReference();
 nextQuestion();
 </script>
