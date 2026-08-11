@@ -28,6 +28,7 @@
   .flag{width:30px;height:22px;border-radius:4px;overflow:hidden;display:flex;box-shadow:0 0 0 1px rgba(0,0,0,.06);}
   .flag span{flex:1;} .flag .g{background:#0d8a4f;} .flag .w{background:#fff;} .flag .r{background:#c8102e;}
   h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.01em;}
+  h1 .ver{font-size:12px;font-weight:500;color:var(--muted);margin-left:7px;letter-spacing:0;}
   h1 small{display:block;font-size:12px;color:var(--muted);font-weight:500;}
   nav{display:flex;gap:4px;margin-top:14px;}
   nav>button{appearance:none;border:none;background:none;font-family:inherit;font-size:15px;font-weight:600;
@@ -119,6 +120,37 @@
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
   .chip{font-size:14px;font-weight:600;padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;transition:.15s;}
   .chip.on{background:var(--green);color:#fff;border-color:var(--green);}
+  /* vocab */
+  .vocab-wrap{max-width:560px;margin:0 auto;}
+  .seg-row{margin-top:14px;}
+  .v-progress{font-size:13px;color:var(--muted);margin:4px 2px 2px;}
+  .v-progress b{color:var(--ink);}
+  .v-daynote{font-size:12.5px;color:var(--green-dark);background:#eef6f1;border:1px solid #d8ebe0;
+    border-radius:10px;padding:8px 12px;margin:8px 0 14px;}
+  .learn-list{display:flex;flex-direction:column;gap:10px;}
+  .learn-sub{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:8px 2px 2px;}
+  .lrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;cursor:pointer;transition:.12s;}
+  .lrow:active{background:#f7f3ec;}
+  .lrow .it{font-size:18px;font-weight:700;flex:1;}
+  .lrow .en{font-size:15px;color:var(--muted);flex:1;text-align:right;transition:.15s;}
+  .lrow.hidden .en{filter:blur(5px);opacity:.5;}
+  .lrow .spk{font-size:16px;opacity:.5;flex:0 0 auto;}
+  .lrow.phrase{border-left:4px solid var(--green);}
+  .lrow.phrase .it{font-size:16px;}
+  .lrow.phrase .en{font-size:13px;}
+  .learn-actions{display:flex;gap:10px;margin-top:18px;}
+  .learn-actions .btn{margin-top:0;}
+  .btn-ghost{background:var(--card);color:var(--green-dark);border:1px solid var(--line);}
+  .btn-ghost:active{background:#f0ede6;}
+  .btn:disabled{opacity:.45;cursor:default;}
+  .v-done{background:#eef6f1;border:1px solid #d8ebe0;border-radius:var(--radius);padding:22px;text-align:center;color:var(--green-dark);font-weight:600;}
+  .vmenu{--tier:#0d8a4f;--tier-soft:#e9f5ee;}
+  .vmenu .mlabel{display:flex;flex-direction:column;line-height:1.2;}
+  .vmenu .mlabel .sub{font-weight:500;font-size:11px;color:var(--muted);margin-top:2px;}
+  .vmenu-more{font-size:11.5px;color:var(--muted);font-style:italic;padding:10px 2px 0;border-top:1px dashed var(--line);margin-top:4px;}
+  .vinner{max-width:560px;}
+  .seg-row{margin:0 0 16px;}
   /* grammar */
   .gwrap{display:flex;gap:22px;align-items:flex-start;}
   .gmenu{flex:0 0 244px;position:sticky;top:132px;display:flex;flex-direction:column;gap:16px;}
@@ -175,12 +207,13 @@
 <header>
   <div class="brand">
     <div class="flag"><span class="g"></span><span class="w"></span><span class="r"></span></div>
-    <h1>Grammatica<small>Italian verbs &amp; grammar</small></h1>
+    <h1>Grammatica <span class="ver">v1.1</span><small>Italian verbs &amp; grammar</small></h1>
   </div>
   <nav>
     <button data-view="start" class="active">Start here</button>
     <button data-view="reference">Reference</button>
     <button data-view="practice">Practice</button>
+    <button data-view="vocab">Vocab</button>
     <button data-view="grammar">Grammar</button>
   </nav>
 </header>
@@ -322,6 +355,86 @@
         </div>
         <div class="feedback" id="qFeedback"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ VOCAB ============ -->
+  <section id="vocab" class="view">
+    <div class="gwrap">
+      <aside class="gmenu vmenu" id="vMenu"></aside>
+      <div class="gcontent"><div class="vinner">
+
+        <div class="seg-row">
+          <div class="segmented" id="vMode">
+            <button class="active" data-vmode="learn">Learn</button>
+            <button data-vmode="quiz">Quiz</button>
+          </div>
+        </div>
+
+      <!-- ===== LEARN ===== -->
+      <div id="vLearn">
+        <div class="v-progress" id="vProgress"></div>
+        <div class="v-daynote" id="vDayNote"></div>
+        <div class="learn-list" id="learnList"></div>
+        <div class="learn-actions">
+          <button class="btn btn-primary" id="learnQuizBtn">Quiz this set →</button>
+          <button class="btn btn-ghost" id="learnNextBtn">Learn next set</button>
+        </div>
+        <div class="reset"><button id="vReset">reset my vocab progress</button></div>
+      </div>
+
+      <!-- ===== QUIZ ===== -->
+      <div id="vQuiz" style="display:none;">
+        <div class="scorebar">
+          <div class="stat"><b id="vsCorrect">0</b><span>correct</span></div>
+          <div class="stat"><b id="vsTotal">0</b><span>answered</span></div>
+          <div class="stat"><b id="vsStreak">0</b><span>streak</span></div>
+        </div>
+
+        <div class="config">
+          <h3>Answer by</h3>
+          <div class="chips" id="vFormat">
+            <div class="chip on" data-vformat="mc">Multiple choice</div>
+            <div class="chip" data-vformat="type">Type the answer</div>
+          </div>
+          <h3 style="margin-top:14px;">Direction</h3>
+          <div class="chips" id="vDir">
+            <div class="chip on" data-vdir="it2en">Italian → English</div>
+            <div class="chip" data-vdir="en2it">English → Italian</div>
+          </div>
+          <h3 style="margin-top:14px;">Test on</h3>
+          <div class="chips" id="vPoolSel">
+            <div class="chip on" data-vpool="today">Today's set</div>
+            <div class="chip" data-vpool="all">All I've learnt</div>
+            <div class="chip" data-vpool="mistakes">My mistakes (<span id="vMissCount">0</span>)</div>
+          </div>
+          <h3 style="margin-top:14px;">Include</h3>
+          <div class="chips" id="vKind">
+            <div class="chip on" data-vkind="words">Words</div>
+            <div class="chip on" data-vkind="phrases">Phrases</div>
+          </div>
+        </div>
+
+        <div class="quiz-card">
+          <div class="quiz-meta"><span id="vqSit"></span><span id="vqKind"></span></div>
+          <div class="quiz-prompt" id="vqPrompt">Translate</div>
+          <div class="quiz-verb" id="vqTerm">—</div>
+          <div class="quiz-pron" id="vqAudio" style="min-height:8px;"></div>
+          <div id="vTypeBlock">
+            <div class="accents" id="vAccentBar"></div>
+            <input class="quiz-input" id="vqInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type the Italian…">
+            <button class="btn btn-primary" id="vqCheck" data-mode="check">Check</button>
+          </div>
+          <div id="vMcBlock" style="display:none;">
+            <div class="mc-options" id="vMcOptions"></div>
+            <button class="btn btn-primary" id="vMcNext" style="display:none;">Next →</button>
+          </div>
+          <div class="feedback" id="vqFeedback"></div>
+        </div>
+        <div class="reset"><button id="vReset2">reset my vocab progress</button></div>
+      </div>
+
+      </div></div>
     </div>
   </section>
 
@@ -1114,6 +1227,298 @@ loadState(); updateStats();
 setHH();
 renderReference();
 nextQuestion();
+
+const V_ORDER = ["directions", "shopping", "meeting", "cafe"];
+const VOCAB = {"directions": {"menu": "Directions","desc": "Getting around · station & train","short": "Directions / station","words": [{"it": "la strada","en": "the road / street"},{"it": "la via","en": "the street"},{"it": "la piazza","en": "the square"},{"it": "l'incrocio","en": "the crossroads / junction"},{"it": "il semaforo","en": "the traffic light"},{"it": "l'angolo","en": "the corner"},{"it": "il marciapiede","en": "the pavement"},{"it": "il ponte","en": "the bridge"},{"it": "la rotonda","en": "the roundabout"},{"it": "la mappa","en": "the map"},{"it": "la cartina","en": "the (street) map"},{"it": "la destra","en": "the right"},{"it": "la sinistra","en": "the left"},{"it": "dritto","en": "straight on"},{"it": "il centro","en": "the centre"},{"it": "il centro città","en": "the city centre"},{"it": "la periferia","en": "the outskirts"},{"it": "il quartiere","en": "the neighbourhood"},{"it": "vicino","en": "near"},{"it": "lontano","en": "far"},{"it": "qui","en": "here"},{"it": "lì","en": "there"},{"it": "la fermata","en": "the (bus/tram) stop"},{"it": "l'autobus","en": "the bus"},{"it": "il tram","en": "the tram"},{"it": "la metropolitana","en": "the underground"},{"it": "la metro","en": "the metro (short)"},{"it": "il taxi","en": "the taxi"},{"it": "il parcheggio","en": "the car park"},{"it": "l'uscita","en": "the exit"},{"it": "l'entrata","en": "the entrance"},{"it": "il nord","en": "the north"},{"it": "il sud","en": "the south"},{"it": "l'est","en": "the east"},{"it": "l'ovest","en": "the west"},{"it": "la chiesa","en": "the church"},{"it": "il duomo","en": "the cathedral"},{"it": "il museo","en": "the museum"},{"it": "la banca","en": "the bank"},{"it": "la posta","en": "the post office"},{"it": "la farmacia","en": "the pharmacy"},{"it": "l'ospedale","en": "the hospital"},{"it": "il negozio","en": "the shop"},{"it": "il supermercato","en": "the supermarket"},{"it": "il ristorante","en": "the restaurant"},{"it": "il bar","en": "the café / bar"},{"it": "l'albergo","en": "the hotel"},{"it": "il bagno","en": "the toilet"},{"it": "l'indirizzo","en": "the address"},{"it": "la direzione","en": "the direction"},{"it": "la stazione","en": "the station"},{"it": "la stazione ferroviaria","en": "the railway station"},{"it": "il treno","en": "the train"},{"it": "il binario","en": "the platform / track"},{"it": "il biglietto","en": "the ticket"},{"it": "la biglietteria","en": "the ticket office"},{"it": "il biglietto di andata","en": "the single ticket"},{"it": "il biglietto di andata e ritorno","en": "the return ticket"},{"it": "la macchinetta","en": "the ticket machine"},{"it": "l'orario","en": "the timetable"},{"it": "la partenza","en": "the departure"},{"it": "l'arrivo","en": "the arrival"},{"it": "il ritardo","en": "the delay"},{"it": "la coincidenza","en": "the connection"},{"it": "il posto","en": "the seat"},{"it": "la prenotazione","en": "the reservation"},{"it": "la prima classe","en": "first class"},{"it": "la seconda classe","en": "second class"},{"it": "la carrozza","en": "the carriage"},{"it": "il capotreno","en": "the train guard"},{"it": "il controllore","en": "the ticket inspector"},{"it": "il passeggero","en": "the passenger"},{"it": "il bagaglio","en": "the luggage"},{"it": "la valigia","en": "the suitcase"},{"it": "lo zaino","en": "the rucksack"},{"it": "la sala d'attesa","en": "the waiting room"},{"it": "il deposito bagagli","en": "the left-luggage office"},{"it": "l'ascensore","en": "the lift"},{"it": "le scale","en": "the stairs"},{"it": "la scala mobile","en": "the escalator"},{"it": "il regionale","en": "the regional train"},{"it": "l'alta velocità","en": "the high-speed train"},{"it": "il percorso","en": "the route"},{"it": "la distanza","en": "the distance"},{"it": "andare","en": "to go"},{"it": "venire","en": "to come"},{"it": "girare","en": "to turn"},{"it": "continuare","en": "to continue"},{"it": "attraversare","en": "to cross"},{"it": "tornare","en": "to go back"},{"it": "prendere","en": "to take / catch"},{"it": "scendere","en": "to get off"},{"it": "salire","en": "to get on"},{"it": "cambiare","en": "to change"},{"it": "arrivare","en": "to arrive"},{"it": "partire","en": "to depart / leave"},{"it": "aspettare","en": "to wait"},{"it": "perdere","en": "to miss (a train)"},{"it": "perdersi","en": "to get lost"},{"it": "chiedere","en": "to ask"}],"phrases": [{"it": "Mi scusi, dov'è la stazione / il bagno / la fermata dell'autobus?","en": "Excuse me, where is the station / the toilet / the bus stop?"},{"it": "Come si arriva al centro / al duomo / all'albergo?","en": "How do I get to the centre / the cathedral / the hotel?"},{"it": "È lontano / vicino da qui?","en": "Is it far / near from here?"},{"it": "Quanto tempo ci vuole a piedi / in autobus / in treno?","en": "How long does it take on foot / by bus / by train?"},{"it": "Posso andare a piedi?","en": "Can I go on foot?"},{"it": "Vada sempre dritto.","en": "Go straight on."},{"it": "Giri a destra / a sinistra.","en": "Turn right / left."},{"it": "Al semaforo / All'incrocio giri a destra.","en": "At the traffic light / crossroads, turn right."},{"it": "Attraversi la strada / il ponte / la piazza.","en": "Cross the road / the bridge / the square."},{"it": "È in fondo alla strada / alla via.","en": "It's at the end of the street / road."},{"it": "È sulla destra / sulla sinistra.","en": "It's on the right / left."},{"it": "È qui vicino.","en": "It's nearby."},{"it": "C'è una banca / una farmacia / un supermercato qui vicino?","en": "Is there a bank / pharmacy / supermarket nearby?"},{"it": "Sto cercando questo indirizzo / questo museo / questo albergo.","en": "I'm looking for this address / museum / hotel."},{"it": "Può mostrarmelo sulla mappa?","en": "Can you show me on the map?"},{"it": "Mi sono perso. / Mi sono persa.","en": "I'm lost. (m / f)"},{"it": "Prendo l'autobus / il tram / la metro?","en": "Do I take the bus / the tram / the metro?"},{"it": "Dove devo scendere / salire / cambiare?","en": "Where do I get off / get on / change?"},{"it": "A che ora parte / arriva il treno?","en": "What time does the train leave / arrive?"},{"it": "A che ora parte il treno per Firenze / Roma / Napoli?","en": "What time is the train to Florence / Rome / Naples?"},{"it": "Da quale binario parte?","en": "Which platform does it leave from?"},{"it": "Un biglietto / Due biglietti per Roma, per favore.","en": "One ticket / Two tickets to Rome, please."},{"it": "Andata e ritorno / Solo andata, per favore.","en": "Return / Single only, please."},{"it": "Vorrei un biglietto di prima / seconda classe.","en": "I'd like a first- / second-class ticket."},{"it": "Quanto costa il biglietto?","en": "How much is the ticket?"},{"it": "Devo cambiare treno?","en": "Do I have to change trains?"},{"it": "Questo treno ferma a Pisa / a Bologna?","en": "Does this train stop at Pisa / Bologna?"},{"it": "È in orario?","en": "Is it on time?"},{"it": "Il treno è in ritardo.","en": "The train is late."},{"it": "Ho perso il treno / la coincidenza.","en": "I've missed the train / the connection."},{"it": "È libero questo posto?","en": "Is this seat free?"},{"it": "Questo è il mio posto.","en": "This is my seat."},{"it": "Scusi, è questo il treno per Napoli?","en": "Excuse me, is this the train to Naples?"},{"it": "Dove posso comprare i biglietti?","en": "Where can I buy tickets?"},{"it": "Vorrei prenotare un posto.","en": "I'd like to reserve a seat."},{"it": "Dov'è la sala d'attesa / il deposito bagagli?","en": "Where is the waiting room / the left-luggage office?"},{"it": "Dove sono le scale / l'ascensore / la scala mobile?","en": "Where are the stairs / the lift / the escalator?"},{"it": "Può ripetere, per favore?","en": "Can you repeat that, please?"},{"it": "Può parlare più lentamente?","en": "Can you speak more slowly?"},{"it": "Grazie mille, molto gentile.","en": "Thank you very much, very kind."}]},"shopping": {"menu": "Shopping","desc": "Clothes & food","short": "Shopping","words": [{"it": "il negozio","en": "the shop"},{"it": "il commesso / la commessa","en": "the shop assistant"},{"it": "il/la cliente","en": "the customer"},{"it": "la vetrina","en": "the shop window"},{"it": "il camerino","en": "the fitting room"},{"it": "la cassa","en": "the till / checkout"},{"it": "lo scontrino","en": "the receipt"},{"it": "il prezzo","en": "the price"},{"it": "i saldi","en": "the sales"},{"it": "lo sconto","en": "the discount"},{"it": "l'offerta","en": "the offer"},{"it": "i contanti","en": "cash"},{"it": "la carta di credito","en": "the credit card"},{"it": "il bancomat","en": "the debit card / cashpoint"},{"it": "la borsa","en": "the bag / handbag"},{"it": "il sacchetto","en": "the carrier bag"},{"it": "la taglia","en": "the size (clothes)"},{"it": "il numero","en": "the size (shoes)"},{"it": "il colore","en": "the colour"},{"it": "lo stile","en": "the style"},{"it": "bianco","en": "white"},{"it": "nero","en": "black"},{"it": "rosso","en": "red"},{"it": "blu","en": "blue"},{"it": "verde","en": "green"},{"it": "giallo","en": "yellow"},{"it": "rosa","en": "pink"},{"it": "grigio","en": "grey"},{"it": "marrone","en": "brown"},{"it": "azzurro","en": "light blue"},{"it": "i vestiti","en": "clothes"},{"it": "l'abito","en": "the suit / dress"},{"it": "il vestito","en": "the dress"},{"it": "la maglietta","en": "the T-shirt"},{"it": "il maglione","en": "the jumper"},{"it": "la camicia","en": "the shirt"},{"it": "la camicetta","en": "the blouse"},{"it": "i pantaloni","en": "the trousers"},{"it": "i jeans","en": "the jeans"},{"it": "la gonna","en": "the skirt"},{"it": "la giacca","en": "the jacket"},{"it": "il cappotto","en": "the coat"},{"it": "il giubbotto","en": "the (casual) jacket"},{"it": "le scarpe","en": "the shoes"},{"it": "gli stivali","en": "the boots"},{"it": "le scarpe da ginnastica","en": "the trainers"},{"it": "i calzini","en": "the socks"},{"it": "la cintura","en": "the belt"},{"it": "il cappello","en": "the hat"},{"it": "la sciarpa","en": "the scarf"},{"it": "i guanti","en": "the gloves"},{"it": "gli occhiali","en": "the glasses"},{"it": "il costume da bagno","en": "the swimsuit"},{"it": "il cibo","en": "the food"},{"it": "il pane","en": "the bread"},{"it": "il latte","en": "the milk"},{"it": "il formaggio","en": "the cheese"},{"it": "il burro","en": "the butter"},{"it": "le uova","en": "the eggs"},{"it": "la carne","en": "the meat"},{"it": "il pollo","en": "the chicken"},{"it": "il pesce","en": "the fish"},{"it": "il prosciutto","en": "the ham"},{"it": "la pasta","en": "the pasta"},{"it": "il riso","en": "the rice"},{"it": "la frutta","en": "the fruit"},{"it": "la verdura","en": "the vegetables"},{"it": "la mela","en": "the apple"},{"it": "la banana","en": "the banana"},{"it": "l'arancia","en": "the orange"},{"it": "il pomodoro","en": "the tomato"},{"it": "la patata","en": "the potato"},{"it": "l'insalata","en": "the salad / lettuce"},{"it": "la cipolla","en": "the onion"},{"it": "l'aglio","en": "the garlic"},{"it": "il limone","en": "the lemon"},{"it": "l'olio","en": "the oil"},{"it": "il sale","en": "the salt"},{"it": "lo zucchero","en": "the sugar"},{"it": "il caffè","en": "the coffee"},{"it": "il tè","en": "the tea"},{"it": "l'acqua","en": "the water"},{"it": "il vino","en": "the wine"},{"it": "la birra","en": "the beer"},{"it": "il succo","en": "the juice"},{"it": "la bottiglia","en": "the bottle"},{"it": "il chilo","en": "the kilo"},{"it": "l'etto","en": "the 100 grams"},{"it": "la fetta","en": "the slice"},{"it": "il pacco","en": "the packet"},{"it": "la scatola","en": "the box / tin"},{"it": "il mercato","en": "the market"},{"it": "comprare","en": "to buy"},{"it": "pagare","en": "to pay"},{"it": "costare","en": "to cost"},{"it": "provare","en": "to try on"},{"it": "cercare","en": "to look for"},{"it": "portare","en": "to wear / carry"},{"it": "prendere","en": "to take / have"},{"it": "vendere","en": "to sell"}],"phrases": [{"it": "Sto solo guardando, grazie.","en": "I'm just looking, thanks. (io)"},{"it": "Vorrei comprare una giacca.","en": "I'd like to buy a jacket. (io)"},{"it": "Quanto costa? / Quanto costano?","en": "How much is it? / How much are they? (costare, sing/plur)"},{"it": "Avete questo in un'altra taglia / un altro colore / un altro stile?","en": "Do you have this in another size / colour / style? (voi)"},{"it": "Che taglia porta?","en": "What size do you take? (lei — assistant asks)"},{"it": "Porto la taglia media.","en": "I take the medium size. (io)"},{"it": "Posso provarlo? / Posso provarli?","en": "Can I try it on? / Can I try them on?"},{"it": "Dov'è il camerino?","en": "Where is the fitting room?"},{"it": "Mi sta bene?","en": "Does it suit / fit me?"},{"it": "È troppo stretto / largo / corto / lungo.","en": "It's too tight / loose / short / long."},{"it": "Lo vedo in vetrina. / L'ho visto in vetrina.","en": "I see it in the window. / I saw it in the window. (present vs past)"},{"it": "Lo prendo. / Li prendo tutti e due.","en": "I'll take it. / I'll take both. (io)"},{"it": "Prende qualcos'altro?","en": "Anything else? (lei — assistant)"},{"it": "No, grazie, basta così.","en": "No thanks, that's all."},{"it": "Cerco un regalo per mia moglie / mio marito.","en": "I'm looking for a present for my wife / husband. (io)"},{"it": "Avete i saldi? C'è uno sconto?","en": "Do you have the sales on? Is there a discount? (voi)"},{"it": "Posso pagare con la carta / in contanti?","en": "Can I pay by card / in cash? (io)"},{"it": "Dov'è la cassa?","en": "Where is the till?"},{"it": "Mi dà lo scontrino, per favore?","en": "Could you give me the receipt, please? (lei)"},{"it": "Prendiamo due chili di mele.","en": "We'll take two kilos of apples. (noi)"},{"it": "Vorrei un etto di prosciutto.","en": "I'd like 100g of ham. (io)"},{"it": "Mi dia mezzo chilo di pomodori.","en": "Give me half a kilo of tomatoes. (lei — command)"},{"it": "Quanto viene in tutto?","en": "How much is it altogether?"},{"it": "Avete del pane fresco?","en": "Do you have any fresh bread? (voi)"},{"it": "Vendete anche il formaggio?","en": "Do you sell cheese too? (voi)"},{"it": "Questi pomodori sono maturi?","en": "Are these tomatoes ripe? (loro)"},{"it": "Le arance sono buone oggi.","en": "The oranges are good today. (loro)"},{"it": "Cosa mi consiglia?","en": "What do you recommend? (lei)"},{"it": "Compriamo qualcosa per cena.","en": "Let's buy something for dinner. (noi)"},{"it": "I bambini vogliono la frutta.","en": "The children want fruit. (loro)"},{"it": "Vengo qui ogni sabato.","en": "I come here every Saturday. (io)"},{"it": "Hai preso il latte?","en": "Did you get the milk? (tu, past)"},{"it": "Prendi tu il pane?","en": "Will you get the bread? (tu)"},{"it": "Non ho contanti, solo la carta.","en": "I don't have cash, only card. (io)"},{"it": "Costa troppo, è caro.","en": "It costs too much, it's expensive."},{"it": "Me ne dia due, per favore.","en": "Give me two (of them), please. (lei)"},{"it": "Ci vediamo alla cassa.","en": "See you at the till. (noi)"},{"it": "Posso cambiarlo? Non mi sta bene.","en": "Can I exchange it? It doesn't fit me. (io)"},{"it": "Avete un sacchetto, per favore?","en": "Do you have a bag, please? (voi)"},{"it": "Torno più tardi, grazie.","en": "I'll come back later, thanks. (io)"}]},"meeting": {"menu": "Greeting","desc": "Meeting people · family · plans","short": "Greeting","words": [{"it": "ciao","en": "hi / bye"},{"it": "salve","en": "hello (neutral)"},{"it": "buongiorno","en": "good morning"},{"it": "buonasera","en": "good evening"},{"it": "buonanotte","en": "good night"},{"it": "arrivederci","en": "goodbye"},{"it": "piacere","en": "pleased to meet you"},{"it": "il nome","en": "the (first) name"},{"it": "il cognome","en": "the surname"},{"it": "il signore","en": "the gentleman / sir"},{"it": "la signora","en": "the lady / madam"},{"it": "la signorina","en": "the young lady / miss"},{"it": "l'amico / l'amica","en": "the friend (m/f)"},{"it": "il ragazzo","en": "the boy / boyfriend"},{"it": "la ragazza","en": "the girl / girlfriend"},{"it": "la famiglia","en": "the family"},{"it": "i genitori","en": "the parents"},{"it": "il padre / il papà","en": "the father / dad"},{"it": "la madre / la mamma","en": "the mother / mum"},{"it": "il figlio","en": "the son"},{"it": "la figlia","en": "the daughter"},{"it": "i figli","en": "the children"},{"it": "il fratello","en": "the brother"},{"it": "la sorella","en": "the sister"},{"it": "il marito","en": "the husband"},{"it": "la moglie","en": "the wife"},{"it": "il nonno","en": "the grandfather"},{"it": "la nonna","en": "the grandmother"},{"it": "i nonni","en": "the grandparents"},{"it": "il nipote","en": "the grandson / nephew"},{"it": "la nipote","en": "the granddaughter / niece"},{"it": "lo zio","en": "the uncle"},{"it": "la zia","en": "the aunt"},{"it": "il cugino / la cugina","en": "the cousin"},{"it": "il fidanzato / la fidanzata","en": "the fiancé(e) / partner"},{"it": "il/la parente","en": "the relative"},{"it": "il bambino / la bambina","en": "the child (m/f)"},{"it": "il/la collega","en": "the colleague"},{"it": "il vicino / la vicina","en": "the neighbour"},{"it": "il lavoro","en": "the job / work"},{"it": "la casa","en": "the house / home"},{"it": "la città","en": "the city / town"},{"it": "il paese","en": "the country / village"},{"it": "la vacanza","en": "the holiday"},{"it": "l'età","en": "the age"},{"it": "l'anno","en": "the year"},{"it": "il compleanno","en": "the birthday"},{"it": "sposato / sposata","en": "married"},{"it": "single","en": "single"},{"it": "giovane","en": "young"},{"it": "anziano","en": "elderly"},{"it": "simpatico","en": "nice / likeable"},{"it": "gentile","en": "kind"},{"it": "felice","en": "happy"},{"it": "stanco","en": "tired"},{"it": "impegnato","en": "busy"},{"it": "libero","en": "free (available)"},{"it": "oggi","en": "today"},{"it": "domani","en": "tomorrow"},{"it": "dopodomani","en": "the day after tomorrow"},{"it": "ieri","en": "yesterday"},{"it": "stamattina","en": "this morning"},{"it": "stasera","en": "this evening"},{"it": "il fine settimana","en": "the weekend"},{"it": "la settimana","en": "the week"},{"it": "il mese","en": "the month"},{"it": "l'ora","en": "the hour / time"},{"it": "il momento","en": "the moment"},{"it": "lunedì","en": "Monday"},{"it": "martedì","en": "Tuesday"},{"it": "mercoledì","en": "Wednesday"},{"it": "giovedì","en": "Thursday"},{"it": "venerdì","en": "Friday"},{"it": "sabato","en": "Saturday"},{"it": "domenica","en": "Sunday"},{"it": "il numero di telefono","en": "the phone number"},{"it": "l'indirizzo","en": "the address"},{"it": "l'email","en": "the email"},{"it": "l'appuntamento","en": "the appointment / date"},{"it": "il messaggio","en": "the message / text"},{"it": "chiamarsi","en": "to be called"},{"it": "essere","en": "to be"},{"it": "avere","en": "to have"},{"it": "abitare","en": "to live"},{"it": "lavorare","en": "to work"},{"it": "stare","en": "to stay / be"},{"it": "conoscere","en": "to know (a person)"},{"it": "presentare","en": "to introduce"},{"it": "incontrare","en": "to meet"},{"it": "incontrarsi","en": "to meet (each other)"},{"it": "vedersi","en": "to see each other"},{"it": "sentirsi","en": "to be in touch"},{"it": "venire","en": "to come"},{"it": "rimanere","en": "to stay"},{"it": "tornare","en": "to return"},{"it": "piacere (a)","en": "to like / to please [verb]"},{"it": "parlare","en": "to speak"},{"it": "capire","en": "to understand"},{"it": "scrivere","en": "to write"},{"it": "telefonare","en": "to phone"}],"phrases": [{"it": "Ciao, come ti chiami?","en": "Hi, what's your name? (tu)"},{"it": "Come si chiama?","en": "What's your name? (lei — formal)"},{"it": "Mi chiamo Lewis, e tu? / e lei?","en": "My name is Lewis, and you? (informal / formal)"},{"it": "Piacere di conoscerti / conoscerla.","en": "Pleased to meet you. (tu / lei)"},{"it": "Come stai? / Come sta?","en": "How are you? (tu / lei)"},{"it": "Sto bene, grazie, e tu?","en": "I'm well, thanks, and you? (io / tu)"},{"it": "Di dove sei? / Di dov'è?","en": "Where are you from? (tu / lei)"},{"it": "Sono inglese, vengo da Londra.","en": "I'm English, I come from London. (io)"},{"it": "Parli inglese?","en": "Do you speak English? (tu)"},{"it": "Non capisco, può ripetere?","en": "I don't understand, can you repeat? (io / lei)"},{"it": "Siamo a Firenze in vacanza.","en": "We're in Florence on holiday. (noi)"},{"it": "Sei in vacanza a Firenze? / È in vacanza a Firenze?","en": "Are you on holiday in Florence? (tu / lei)"},{"it": "Rimaniamo qui una settimana.","en": "We're staying here a week. (noi)"},{"it": "Quanto tempo rimani / rimane qui?","en": "How long are you staying here? (tu / lei)"},{"it": "Abito a Firenze. Abiti qui?","en": "I live in Florence. Do you live here? (io / tu)"},{"it": "Hai fratelli o sorelle?","en": "Do you have brothers or sisters? (tu)"},{"it": "Ho un fratello e due sorelle.","en": "I have a brother and two sisters. (io)"},{"it": "Sei sposato / sposata?","en": "Are you married? (tu, m / f)"},{"it": "Siamo sposati da dieci anni.","en": "We've been married for ten years. (noi)"},{"it": "Avete figli?","en": "Do you have children? (voi)"},{"it": "Abbiamo due figli.","en": "We have two children. (noi)"},{"it": "Questa è mia moglie. / Questo è mio marito.","en": "This is my wife. / This is my husband."},{"it": "Ti presento un amico.","en": "Let me introduce a friend (to you). (tu)"},{"it": "Le presento mia moglie.","en": "May I introduce my wife. (lei)"},{"it": "I miei genitori vivono in Inghilterra.","en": "My parents live in England. (loro)"},{"it": "Mia sorella lavora a Roma.","en": "My sister works in Rome. (lei / 3rd person)"},{"it": "Quanti anni hai? / Quanti anni ha?","en": "How old are you? (tu / lei)"},{"it": "Che lavoro fai? / Che lavoro fa?","en": "What do you do (for work)? (tu / lei)"},{"it": "Ci vediamo domani?","en": "Shall we meet tomorrow? (noi)"},{"it": "Ci possiamo vedere sabato.","en": "We can meet on Saturday. (noi)"},{"it": "Sei libero / libera stasera?","en": "Are you free tonight? (tu, m / f)"},{"it": "Vieni con noi?","en": "Are you coming with us? (tu)"},{"it": "Andiamo a bere qualcosa?","en": "Shall we go for a drink? (noi)"},{"it": "A che ora ci vediamo?","en": "What time shall we meet? (noi)"},{"it": "Ci vediamo alle otto davanti al bar.","en": "See you at eight in front of the café. (noi)"},{"it": "Mi dai il tuo numero?","en": "Will you give me your number? (tu)"},{"it": "Ti scrivo un messaggio.","en": "I'll text you. (io → tu)"},{"it": "Ci sentiamo presto!","en": "We'll be in touch soon! (noi)"},{"it": "È stato un piacere.","en": "It's been a pleasure. (past)"},{"it": "Spero di rivederti / rivederla.","en": "I hope to see you again. (tu / lei)"}]},"cafe": {"menu": "Restaurant","desc": "Café, bar & restaurant","short": "Restaurant","words": [{"it": "il ristorante","en": "the restaurant"},{"it": "la trattoria","en": "the trattoria"},{"it": "la pizzeria","en": "the pizzeria"},{"it": "il bar","en": "the café / bar"},{"it": "il cameriere / la cameriera","en": "the waiter / waitress"},{"it": "il cuoco","en": "the cook / chef"},{"it": "il conto","en": "the bill"},{"it": "la mancia","en": "the tip"},{"it": "il tavolo","en": "the table"},{"it": "la prenotazione","en": "the reservation"},{"it": "il menù","en": "the menu"},{"it": "la carta dei vini","en": "the wine list"},{"it": "il coperto","en": "the cover charge"},{"it": "il piatto","en": "the dish / plate"},{"it": "la portata","en": "the course"},{"it": "il bicchiere","en": "the glass"},{"it": "la tazza","en": "the cup"},{"it": "la forchetta","en": "the fork"},{"it": "il coltello","en": "the knife"},{"it": "il cucchiaio","en": "the spoon"},{"it": "il cucchiaino","en": "the teaspoon"},{"it": "il tovagliolo","en": "the napkin"},{"it": "la bottiglia","en": "the bottle"},{"it": "la caraffa","en": "the carafe"},{"it": "l'antipasto","en": "the starter"},{"it": "il primo","en": "the first course"},{"it": "il secondo","en": "the main course"},{"it": "il contorno","en": "the side dish"},{"it": "il dolce","en": "the dessert"},{"it": "la pizza","en": "the pizza"},{"it": "la pasta","en": "the pasta"},{"it": "gli spaghetti","en": "the spaghetti"},{"it": "il risotto","en": "the risotto"},{"it": "la zuppa","en": "the soup"},{"it": "la minestra","en": "the soup"},{"it": "l'insalata","en": "the salad"},{"it": "la bistecca","en": "the steak"},{"it": "il panino","en": "the sandwich / roll"},{"it": "il tramezzino","en": "the (soft) sandwich"},{"it": "la bruschetta","en": "the bruschetta"},{"it": "il gelato","en": "the ice cream"},{"it": "la torta","en": "the cake"},{"it": "il pane","en": "the bread"},{"it": "l'acqua naturale","en": "still water"},{"it": "l'acqua frizzante","en": "sparkling water"},{"it": "il vino rosso","en": "red wine"},{"it": "il vino bianco","en": "white wine"},{"it": "la birra","en": "the beer"},{"it": "l'espresso","en": "the espresso"},{"it": "il cappuccino","en": "the cappuccino"},{"it": "il cornetto","en": "the croissant"},{"it": "il tè","en": "the tea"},{"it": "il latte","en": "the milk"},{"it": "la spremuta","en": "the fresh juice"},{"it": "l'aperitivo","en": "the aperitif"},{"it": "il digestivo","en": "the after-dinner drink"},{"it": "il sale","en": "the salt"},{"it": "il pepe","en": "the pepper"},{"it": "l'olio","en": "the oil"},{"it": "l'aceto","en": "the vinegar"},{"it": "il formaggio","en": "the cheese"},{"it": "il prosciutto","en": "the ham"},{"it": "il pomodoro","en": "the tomato"},{"it": "il pollo","en": "the chicken"},{"it": "il pesce","en": "the fish"},{"it": "la carne","en": "the meat"},{"it": "le verdure","en": "the vegetables"},{"it": "le patate fritte","en": "the chips"},{"it": "lo zucchero","en": "the sugar"},{"it": "il ghiaccio","en": "the ice"},{"it": "buono","en": "good / tasty"},{"it": "buonissimo","en": "delicious"},{"it": "caldo","en": "hot"},{"it": "freddo","en": "cold"},{"it": "dolce","en": "sweet"},{"it": "salato","en": "salty"},{"it": "piccante","en": "spicy"},{"it": "fresco","en": "fresh"},{"it": "squisito","en": "exquisite"},{"it": "la fame","en": "hunger"},{"it": "la sete","en": "thirst"},{"it": "la colazione","en": "breakfast"},{"it": "il pranzo","en": "lunch"},{"it": "la cena","en": "dinner"},{"it": "la merenda","en": "the snack"},{"it": "l'ordine","en": "the order"},{"it": "vegetariano / vegetariana","en": "vegetarian"},{"it": "l'allergia","en": "the allergy"},{"it": "il resto","en": "the change"},{"it": "la specialità","en": "the speciality"},{"it": "ordinare","en": "to order"},{"it": "mangiare","en": "to eat"},{"it": "bere","en": "to drink"},{"it": "prendere","en": "to have (order)"},{"it": "volere","en": "to want"},{"it": "consigliare","en": "to recommend"},{"it": "pagare","en": "to pay"},{"it": "prenotare","en": "to book"},{"it": "l'acqua","en": "the water"},{"it": "il caffè","en": "the coffee"}],"phrases": [{"it": "Un tavolo per due, per favore.","en": "A table for two, please."},{"it": "Ho prenotato un tavolo per stasera.","en": "I've booked a table for tonight. (io, past)"},{"it": "Avete un tavolo libero?","en": "Do you have a free table? (voi)"},{"it": "Vorrei vedere il menù.","en": "I'd like to see the menu. (io)"},{"it": "Cosa ci consiglia?","en": "What do you recommend (for us)? (lei)"},{"it": "Che cosa prende?","en": "What will you have? (lei — waiter asks)"},{"it": "Io prendo la pasta, e tu?","en": "I'll have the pasta, and you? (io / tu)"},{"it": "Prendiamo una bottiglia di vino rosso.","en": "We'll have a bottle of red wine. (noi)"},{"it": "Per me un caffè, per favore.","en": "For me a coffee, please."},{"it": "Un caffè, per favore. / Due caffè, per favore.","en": "A coffee, please. / Two coffees, please."},{"it": "Cosa prendete da bere?","en": "What will you have to drink? (voi — to a group)"},{"it": "Prendo solo un primo.","en": "I'll have just a first course. (io)"},{"it": "È tutto buonissimo!","en": "It's all delicious!"},{"it": "Vorrei l'acqua naturale / frizzante.","en": "I'd like still / sparkling water. (io)"},{"it": "Posso avere il pane, per favore?","en": "Can I have some bread, please? (io)"},{"it": "Il conto, per favore.","en": "The bill, please."},{"it": "Possiamo pagare separatamente?","en": "Can we pay separately? (noi)"},{"it": "Accettate la carta?","en": "Do you take card? (voi)"},{"it": "Sono vegetariano / vegetariana.","en": "I'm vegetarian. (m / f)"},{"it": "Ho un'allergia alle noci.","en": "I have a nut allergy. (io)"},{"it": "Cosa c'è in questo piatto?","en": "What's in this dish?"},{"it": "Com'è? / Com'era?","en": "How is it? / How was it? (present vs imperfect)"},{"it": "Il pesce era squisito.","en": "The fish was exquisite. (imperfect)"},{"it": "Mangiamo fuori stasera?","en": "Shall we eat out tonight? (noi)"},{"it": "I bambini prendono la pizza.","en": "The children will have pizza. (loro)"},{"it": "Loro vogliono il dolce.","en": "They want dessert. (loro)"},{"it": "Volete un dolce o un caffè?","en": "Would you like dessert or coffee? (voi)"},{"it": "Prendi un aperitivo con noi?","en": "Will you have an aperitif with us? (tu)"},{"it": "Vengo spesso in questo ristorante.","en": "I often come to this restaurant. (io)"},{"it": "Torniamo qui domani?","en": "Shall we come back here tomorrow? (noi)"},{"it": "Mi porta il conto, per favore?","en": "Will you bring me the bill? (lei)"},{"it": "Manca una forchetta.","en": "There's a fork missing."},{"it": "È libero questo posto?","en": "Is this seat free?"},{"it": "Vorrei prenotare per quattro persone.","en": "I'd like to book for four people. (io)"},{"it": "A che ora aprite / chiudete?","en": "What time do you open / close? (voi)"},{"it": "Buon appetito!","en": "Enjoy your meal!"},{"it": "Complimenti al cuoco, era ottimo.","en": "Compliments to the chef, it was excellent. (past)"},{"it": "Posso avere ancora un po' di vino?","en": "Can I have a bit more wine? (io)"},{"it": "Tenga il resto.","en": "Keep the change. (lei — command)"},{"it": "Ci vediamo al bar alle undici.","en": "See you at the café at eleven. (noi)"}]}};
+
+/* ============================================================ VOCAB */
+const V_SITS = ["directions","shopping","cafe","meeting"];
+const V_WPD = 10, V_PPD = 5;
+let vState={}, vScore={correct:0,total:0,streak:0}, vMiss={};
+let vSit="directions", vMode="learn";
+let vFormat="mc", vDir="it2en", vPool="today", vKinds=new Set(["words","phrases"]);
+let vCurrent=null, vCurAns="", vAnswered=false;
+
+function vToday(){ return new Date().toISOString().slice(0,10); }
+function vLoad(){
+  try{
+    const s=JSON.parse(localStorage.getItem("itg.vocab.state")); if(s) vState=s;
+    const sc=JSON.parse(localStorage.getItem("itg.vocab.score")); if(sc) vScore=sc;
+    const m=JSON.parse(localStorage.getItem("itg.vocab.miss")); if(m) vMiss=m;
+  }catch(e){}
+  V_SITS.forEach(k=>{ if(!vState[k]) vState[k]={w:0,p:0,lastDate:null}; });
+}
+function vSave(){
+  try{
+    localStorage.setItem("itg.vocab.state",JSON.stringify(vState));
+    localStorage.setItem("itg.vocab.score",JSON.stringify(vScore));
+    localStorage.setItem("itg.vocab.miss",JSON.stringify(vMiss));
+  }catch(e){}
+}
+const vSt = sit => vState[sit] || {w:0,p:0,lastDate:null};
+
+/* DOM */
+const vProgress=document.getElementById("vProgress"), vDayNote=document.getElementById("vDayNote"),
+  learnList=document.getElementById("learnList"), learnNextBtn=document.getElementById("learnNextBtn"),
+  learnQuizBtn=document.getElementById("learnQuizBtn"),
+  vqSit=document.getElementById("vqSit"), vqKind=document.getElementById("vqKind"),
+  vqPrompt=document.getElementById("vqPrompt"), vqTerm=document.getElementById("vqTerm"),
+  vqAudio=document.getElementById("vqAudio"), vTypeBlock=document.getElementById("vTypeBlock"),
+  vAccentBar=document.getElementById("vAccentBar"), vqInput=document.getElementById("vqInput"),
+  vqCheck=document.getElementById("vqCheck"), vMcBlock=document.getElementById("vMcBlock"),
+  vMcOptions=document.getElementById("vMcOptions"), vMcNext=document.getElementById("vMcNext"),
+  vqFeedback=document.getElementById("vqFeedback"), vMissCount=document.getElementById("vMissCount");
+
+function updateVStats(){
+  document.getElementById("vsCorrect").textContent=vScore.correct;
+  document.getElementById("vsTotal").textContent=vScore.total;
+  document.getElementById("vsStreak").textContent=vScore.streak;
+  vMissCount.textContent=Object.keys(vMiss).filter(k=>k.split("|")[0]===vSit).length;
+}
+
+/* ---- pools ---- */
+function vTodayBlock(sit){
+  const st=vSt(sit), V=VOCAB[sit];
+  return {
+    words:   V.words.slice(st.w, st.w+V_WPD).map((o,i)=>({sit,kind:"word",idx:st.w+i,it:o.it,en:o.en})),
+    phrases: V.phrases.slice(st.p, st.p+V_PPD).map((o,i)=>({sit,kind:"phrase",idx:st.p+i,it:o.it,en:o.en}))
+  };
+}
+function vLearntItems(sit,kind){
+  const st=vSt(sit), V=VOCAB[sit];
+  const n = kind==="word" ? Math.min(Math.max(st.w,V_WPD),V.words.length)
+                          : Math.min(Math.max(st.p,V_PPD),V.phrases.length);
+  const src = kind==="word" ? V.words : V.phrases;
+  return src.slice(0,n).map((o,i)=>({sit,kind,idx:i,it:o.it,en:o.en}));
+}
+function vBuildPool(){
+  const kinds = (vFormat==="type") ? ["word"]
+    : [...vKinds].map(k=> k==="words"?"word":"phrase");
+  let items=[];
+  if(vPool==="mistakes"){
+    items = Object.keys(vMiss).map(k=>{const a=k.split("|");return{sit:a[0],kind:a[1],idx:+a[2]};})
+      .filter(it=> it.sit===vSit && kinds.includes(it.kind))
+      .map(it=>{ const src = it.kind==="word"?VOCAB[it.sit].words[it.idx]:VOCAB[it.sit].phrases[it.idx];
+        return src?{...it,it:src.it,en:src.en}:null; }).filter(Boolean);
+  } else if(vPool==="today"){
+    const b=vTodayBlock(vSit);
+    if(kinds.includes("word")) items=items.concat(b.words);
+    if(kinds.includes("phrase")) items=items.concat(b.phrases);
+  } else {
+    if(kinds.includes("word")) items=items.concat(vLearntItems(vSit,"word"));
+    if(kinds.includes("phrase")) items=items.concat(vLearntItems(vSit,"phrase"));
+  }
+  return items;
+}
+
+/* ---- grading ---- */
+function vNorm(s){ return s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[’'`]/g,"'").replace(/\s+/g," ").trim(); }
+function vStripArt(s){ return s.replace(/^(il|lo|la|l'|i|gli|le|un|uno|una|un')\s*/i,""); }
+function vAcceptable(input, answer){
+  const vars=[];
+  answer.split(" / ").forEach(v=>{ vars.push(v); vars.push(vStripArt(v)); });
+  const inN=vNorm(input);
+  return vars.some(v=> vNorm(v)===inN && inN.length>0);
+}
+
+/* ---- MC ---- */
+function vBuildMC(item, dir){
+  const showIt = dir==="en2it";
+  const ans = showIt ? item.it : item.en;
+  const src = item.kind==="word" ? VOCAB[item.sit].words : VOCAB[item.sit].phrases;
+  const opts=new Set([ans]); let g=0;
+  while(opts.size<4 && g<500){
+    const r=src[Math.floor(Math.random()*src.length)];
+    const s=showIt?r.it:r.en;
+    if(s && s!==ans) opts.add(s); g++;
+  }
+  const arr=[...opts];
+  for(let k=arr.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[arr[k],arr[j]]=[arr[j],arr[k]];}
+  return {arr, ans};
+}
+
+/* ---- quiz render ---- */
+function vEffDir(){ return vFormat==="type" ? "en2it" : vDir; }
+function clearVFeedback(){ vqFeedback.textContent=""; vqFeedback.className="feedback"; }
+function vShowEmpty(){
+  vCurrent=null;
+  vqSit.textContent=VOCAB[vSit].short; vqKind.textContent="";
+  vqTerm.textContent="—"; vqAudio.innerHTML="";
+  vqPrompt.textContent = vPool==="mistakes" ? "No saved mistakes here yet — quiz a set first."
+                                            : "Nothing to test yet — learn a set first.";
+  vTypeBlock.style.display="none"; vMcBlock.style.display="none"; clearVFeedback();
+}
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+function renderVPrompt(){
+  const dir=vEffDir(), it=vCurrent;
+  const showItPrompt = dir==="it2en";
+  vqSit.textContent=VOCAB[vSit].short;
+  vqKind.textContent = it.kind==="phrase" ? "phrase" : "word";
+  clearVFeedback();
+  vqTerm.textContent = showItPrompt ? it.it : it.en;
+  vqPrompt.textContent = showItPrompt ? "What does this mean?" : "How do you say this in Italian?";
+  vqAudio.innerHTML = showItPrompt ? `<button class="spk" data-say="${esc(it.it)}">🔈 hear</button>` : "";
+  vCurAns = dir==="it2en" ? it.en : it.it;
+  if(vFormat==="type"){
+    vTypeBlock.style.display=""; vMcBlock.style.display="none";
+    vqInput.value=""; vqInput.className="quiz-input"; vqInput.disabled=false; vqInput.focus();
+    vqCheck.textContent="Check"; vqCheck.dataset.mode="check";
+  } else {
+    vTypeBlock.style.display="none"; vMcBlock.style.display="";
+    const {arr}=vBuildMC(it,dir);
+    vMcOptions.innerHTML=arr.map(o=>`<button data-val="${esc(o)}">${o}</button>`).join("");
+    vMcNext.style.display="none"; vAnswered=false;
+  }
+}
+function nextVQuestion(){
+  const pool=vBuildPool();
+  if(!pool.length){ vShowEmpty(); return; }
+  vCurrent=pool[Math.floor(Math.random()*pool.length)];
+  renderVPrompt();
+}
+function vKey(it){ return it.sit+"|"+it.kind+"|"+it.idx; }
+function vEvaluate(ok){
+  vScore.total++; if(ok){vScore.correct++;vScore.streak++;} else vScore.streak=0;
+  const k=vKey(vCurrent);
+  if(ok){ if(vMiss[k]) delete vMiss[k]; } else vMiss[k]=(vMiss[k]||0)+1;
+  vSave(); updateVStats();
+}
+function vAnswerHTML(ok){
+  return (ok?"Corretto! ✓ ":`Answer: <span class="answer">${esc(vCurAns)}</span> `)+
+    `<button class="spk" data-say="${esc(vCurrent.it)}">🔈</button>`;
+}
+function vTypeCheck(){
+  if(!vCurrent) return;
+  const ok=vAcceptable(vqInput.value, vCurrent.it);
+  vEvaluate(ok);
+  vqInput.disabled=true; vqInput.classList.add(ok?"correct":"wrong");
+  vqFeedback.className="feedback "+(ok?"ok":"no"); vqFeedback.innerHTML=vAnswerHTML(ok);
+  vqCheck.textContent="Next →"; vqCheck.dataset.mode="next";
+}
+vqCheck.addEventListener("click", ()=>{ if(vqCheck.dataset.mode==="next") nextVQuestion(); else vTypeCheck(); });
+vqInput.addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); vqCheck.click(); } });
+vMcOptions.addEventListener("click", e=>{
+  const b=e.target.closest("button"); if(!b||vAnswered||!vCurrent) return;
+  vAnswered=true;
+  const ok = b.dataset.val===vCurAns;
+  vEvaluate(ok);
+  [...vMcOptions.children].forEach(btn=>{ btn.disabled=true;
+    if(btn.dataset.val===vCurAns) btn.classList.add("correct");
+    else if(btn===b) btn.classList.add("wrong"); });
+  vqFeedback.className="feedback "+(ok?"ok":"no"); vqFeedback.innerHTML=vAnswerHTML(ok);
+  vMcNext.style.display="";
+});
+vMcNext.addEventListener("click", nextVQuestion);
+
+/* ---- learn render ---- */
+function vLearnRow(it){
+  return `<div class="lrow hidden ${it.kind==="phrase"?"phrase":""}">
+    <span class="it">${it.it}</span>
+    <button class="spk" data-say="${esc(it.it)}">🔈</button>
+    <span class="en">${it.en}</span></div>`;
+}
+function renderLearn(){
+  const st=vSt(vSit), V=VOCAB[vSit];
+  vProgress.innerHTML=`<b>${Math.min(st.w,V.words.length)}</b> / ${V.words.length} words &nbsp;·&nbsp; <b>${Math.min(st.p,V.phrases.length)}</b> / ${V.phrases.length} phrases learnt`;
+  const doneAll = st.w>=V.words.length && st.p>=V.phrases.length;
+  if(doneAll){
+    vDayNote.style.display="none";
+    learnList.innerHTML=`<div class="v-done">You've learnt every word and phrase in this situation. Switch to <b>Quiz</b> to keep them sharp.</div>`;
+    learnNextBtn.disabled=true; learnNextBtn.textContent="All learnt";
+    learnQuizBtn.disabled=false; return;
+  }
+  learnNextBtn.disabled=false; learnNextBtn.textContent="Learn next set";
+  const b=vTodayBlock(vSit), learnedToday = st.lastDate===vToday();
+  vDayNote.style.display="";
+  vDayNote.innerHTML = learnedToday
+    ? `✓ You've learnt a set today — nicely paced. Study the next set below, then press <b>Learn next set</b> to carry on, or come back tomorrow.`
+    : `Today's set — <b>${b.words.length} words + ${b.phrases.length} phrases</b>. Tap a card to reveal the English; tap 🔈 to hear it.`;
+  let html="";
+  if(b.words.length){ html+=`<div class="learn-sub">Words</div>`+b.words.map(vLearnRow).join(""); }
+  if(b.phrases.length){ html+=`<div class="learn-sub">Phrases</div>`+b.phrases.map(vLearnRow).join(""); }
+  learnList.innerHTML=html;
+}
+learnList.addEventListener("click", e=>{
+  if(e.target.closest(".spk")) return;
+  const row=e.target.closest(".lrow"); if(row) row.classList.toggle("hidden");
+});
+learnNextBtn.addEventListener("click", ()=>{
+  const st=vSt(vSit), V=VOCAB[vSit];
+  st.w=Math.min(st.w+V_WPD, V.words.length);
+  st.p=Math.min(st.p+V_PPD, V.phrases.length);
+  st.lastDate=vToday(); vState[vSit]=st; vSave(); renderLearn();
+});
+learnQuizBtn.addEventListener("click", ()=>{
+  vPool="today";
+  document.querySelectorAll("#vPoolSel .chip").forEach(x=>x.classList.toggle("on",x.dataset.vpool==="today"));
+  setVMode("quiz");
+});
+
+/* ---- mode / chips ---- */
+function setVMode(m){
+  vMode=m;
+  document.querySelectorAll("#vMode button").forEach(x=>x.classList.toggle("active",x.dataset.vmode===m));
+  document.getElementById("vLearn").style.display = m==="learn"?"":"none";
+  document.getElementById("vQuiz").style.display  = m==="quiz"?"":"none";
+  if(m==="learn") renderLearn(); else { updateVStats(); nextVQuestion(); }
+}
+function syncAvail(){
+  const t=vFormat==="type";
+  document.querySelectorAll("#vDir .chip").forEach(c=>{ c.style.opacity=t?".4":""; c.style.pointerEvents=t?"none":""; });
+  document.querySelectorAll("#vKind .chip").forEach(c=>{ if(c.dataset.vkind==="phrases"){ c.style.opacity=t?".4":""; c.style.pointerEvents=t?"none":""; } });
+}
+const vMenu=document.getElementById("vMenu");
+function renderVMenu(){
+  vMenu.innerHTML = `<div class="grp"><h4>Situations</h4>`+
+    V_ORDER.filter(k=>VOCAB[k]).map(k=>{ const v=VOCAB[k];
+      return `<button data-sit="${k}"${k===vSit?' class="active"':''}><span class="mlabel">${v.menu}<span class="sub">${v.desc}</span></span></button>`;
+    }).join("")+`</div><div class="vmenu-more">More situations coming soon.</div>`;
+}
+vMenu.addEventListener("click", e=>{
+  const b=e.target.closest("button[data-sit]"); if(!b) return;
+  vSit=b.dataset.sit; renderVMenu(); updateVStats();
+  if(vMode==="learn") renderLearn(); else nextVQuestion();
+});
+document.querySelectorAll("#vMode button").forEach(b=> b.addEventListener("click", ()=> setVMode(b.dataset.vmode)) );
+document.querySelectorAll("#vFormat .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{ document.querySelectorAll("#vFormat .chip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on"); vFormat=c.dataset.vformat; syncAvail(); nextVQuestion(); });
+});
+document.querySelectorAll("#vDir .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{ document.querySelectorAll("#vDir .chip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on"); vDir=c.dataset.vdir; nextVQuestion(); });
+});
+document.querySelectorAll("#vPoolSel .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{ document.querySelectorAll("#vPoolSel .chip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on"); vPool=c.dataset.vpool; nextVQuestion(); });
+});
+document.querySelectorAll("#vKind .chip").forEach(c=>{
+  c.addEventListener("click", ()=>{ const k=c.dataset.vkind;
+    if(vKinds.has(k) && vKinds.size>1){ vKinds.delete(k); c.classList.remove("on"); }
+    else { vKinds.add(k); c.classList.add("on"); } nextVQuestion(); });
+});
+function vResetProgress(){
+  if(!confirm("Reset all vocab progress, scores and saved mistakes?")) return;
+  vState={}; vScore={correct:0,total:0,streak:0}; vMiss={};
+  V_SITS.forEach(k=> vState[k]={w:0,p:0,lastDate:null});
+  vSave(); updateVStats();
+  if(vMode==="learn") renderLearn(); else nextVQuestion();
+}
+document.getElementById("vReset").addEventListener("click", vResetProgress);
+document.getElementById("vReset2").addEventListener("click", vResetProgress);
+
+/* vocab accent bar */
+["à","è","é","ì","ò","ù"].forEach(ch=>{
+  const b=document.createElement("button"); b.type="button"; b.textContent=ch;
+  b.addEventListener("click", ()=>{ const s=vqInput.selectionStart,e=vqInput.selectionEnd;
+    vqInput.value=vqInput.value.slice(0,s)+ch+vqInput.value.slice(e);
+    vqInput.selectionStart=vqInput.selectionEnd=s+ch.length; vqInput.focus(); });
+  vAccentBar.appendChild(b);
+});
+
+/* vocab init */
+vLoad(); renderVMenu(); updateVStats(); syncAvail(); renderLearn();
+
 </script>
 </body>
 </html>
