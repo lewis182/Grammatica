@@ -48,6 +48,32 @@
   .segmented button.active{background:var(--card);color:var(--green);box-shadow:0 1px 2px rgba(0,0,0,.08);}
   .seg-sep{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:0 6px;}
   .section-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:26px 2px 12px;}
+  .chart-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:8px;}
+  .chart{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;cursor:pointer;}
+  .chart img{width:100%;height:auto;display:block;background:#fff;}
+  .chart-cap{font-size:13px;color:var(--muted);padding:8px 12px;border-top:1px solid #f1ede4;}
+  .chart-cap b{color:var(--ink);}
+  .chart-light{max-width:900px;}
+  .chart-light img{width:100%;height:auto;border-radius:8px;display:block;}
+  /* Ask (AI tutor) */
+  .ask-wrap{max-width:660px;margin:0 auto;}
+  .ask-note{font-size:12px;color:var(--muted);margin:4px 2px 14px;line-height:1.5;}
+  .ask-key{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
+  .ask-key input{flex:1;min-width:180px;font-size:15px;font-family:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);}
+  .chat-log{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+  .msg{max-width:88%;padding:10px 14px;border-radius:14px;font-size:15px;line-height:1.55;white-space:pre-wrap;word-wrap:break-word;}
+  .msg.user{align-self:flex-end;background:var(--green);color:#fff;border-bottom-right-radius:4px;}
+  .msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px;}
+  .msg.err{align-self:stretch;background:#fdeef0;border:1px solid #f3b0bb;color:var(--red);font-size:13px;}
+  .ask-form{display:flex;gap:8px;align-items:flex-end;position:sticky;bottom:0;background:var(--bg);padding:10px 0;}
+  .ask-form textarea{flex:1;font-size:16px;font-family:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:12px;resize:none;background:var(--card);color:var(--ink);min-height:44px;max-height:140px;}
+  .ask-form textarea:focus{outline:none;border-color:var(--green);}
+  .ask-send{background:var(--green);color:#fff;border:none;font-family:inherit;font-size:15px;font-weight:700;padding:0 18px;height:44px;border-radius:12px;cursor:pointer;}
+  .ask-mic{background:#eceff2;color:var(--ink);border:none;height:44px;width:44px;border-radius:12px;font-size:18px;cursor:pointer;flex:0 0 auto;}
+  .ask-mic.rec{background:var(--red);color:#fff;}
+  .msg.ai .spk-reply{background:none;border:none;cursor:pointer;font-size:13px;opacity:.5;padding:0;margin-left:6px;vertical-align:middle;}
+  .ask-tools{display:flex;gap:14px;justify-content:flex-end;margin-top:6px;}
+  .ask-tools button{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:12px;}
   /* pattern card */
   .pattern-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;margin:18px 0 6px;}
   .pattern-card h3{margin:0 0 4px;font-size:15px;}
@@ -207,14 +233,16 @@
 <header>
   <div class="brand">
     <div class="flag"><span class="g"></span><span class="w"></span><span class="r"></span></div>
-    <h1>Grammatica <span class="ver">v1.1</span><small>Italian verbs &amp; grammar</small></h1>
+    <h1>Grammatica <span class="ver">v1.3</span><small>Italian verbs &amp; grammar</small></h1>
   </div>
   <nav>
     <button data-view="start" class="active">Start here</button>
     <button data-view="reference">Reference</button>
+    <button data-view="charts">Charts</button>
     <button data-view="practice">Practice</button>
     <button data-view="vocab">Vocab</button>
     <button data-view="grammar">Grammar</button>
+    <button data-view="ask">Ask</button>
   </nav>
 </header>
 
@@ -697,6 +725,57 @@
       </div>
     </div>
   </section>
+
+  <!-- ============ CHARTS ============ -->
+  <section id="charts" class="view">
+    <p style="color:var(--muted);font-size:14px;margin:4px 2px 6px;">Picture guides and cheat-sheets. Tap any chart to enlarge it for reading.</p>
+    <div class="section-label">Vocabulary</div>
+    <div class="chart-grid">
+      <div class="chart" data-full="charts/containers.jpg"><img src="charts/containers.jpg" alt="I contenitori — containers vocabulary" loading="lazy"><div class="chart-cap"><b>I contenitori</b> — Containers</div></div>
+      <div class="chart" data-full="charts/fruit.jpg"><img src="charts/fruit.jpg" alt="La frutta — fruit vocabulary" loading="lazy"><div class="chart-cap"><b>La frutta</b> — Fruit</div></div>
+    </div>
+    <div class="section-label">Verb lists</div>
+    <div class="chart-grid">
+      <div class="chart" data-full="charts/verbs-by-category.jpg"><img src="charts/verbs-by-category.jpg" alt="Common verbs grouped by topic" loading="lazy"><div class="chart-cap"><b>Verbs by topic</b> — 90+ everyday verbs</div></div>
+      <div class="chart" data-full="charts/500-verbs.jpg"><img src="charts/500-verbs.jpg" alt="500 base verbs in the io form" loading="lazy"><div class="chart-cap"><b>Base verbs</b> — the “io” (I…) form</div></div>
+    </div>
+    <div class="section-label">Grammar</div>
+    <div class="chart-grid">
+      <div class="chart" data-full="charts/vado-a-al-in.jpg"><img src="charts/vado-a-al-in.jpg" alt="Vado a, vado al, vado in — going places" loading="lazy"><div class="chart-cap"><b>Vado a / al / in</b> — going places</div></div>
+    </div>
+  </section>
+
+  <!-- ============ ASK (AI tutor) ============ -->
+  <section id="ask" class="view">
+    <div class="ask-wrap">
+      <h2 style="font-size:19px;margin:2px 2px 6px;">Ask about grammar</h2>
+      <p class="ask-note">Stuck on a grammar point? Ask a question in plain English and get a clear, beginner-friendly answer. Answers are generated by an AI through your own OpenRouter account.</p>
+
+      <div id="askSetup">
+        <div class="ask-key">
+          <input id="orKey" type="password" placeholder="Paste your OpenRouter API key (sk-or-…)" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <button class="goto" id="orSave">Save key</button>
+        </div>
+        <div class="ask-key">
+          <input id="orModel" type="text" placeholder="Model (e.g. ~anthropic/claude-sonnet-latest)" autocapitalize="off" spellcheck="false">
+        </div>
+        <p class="ask-note"><strong>Your key stays on this device only</strong> (saved in the browser) — it is never uploaded, shared, or put in the public site. Get a key at openrouter.ai → Keys. Each question uses your OpenRouter credit. Change the model to any slug from openrouter.ai/models; good choices: <code>~anthropic/claude-sonnet-latest</code> or <code>~openai/gpt-latest</code>.</p>
+      </div>
+
+      <div id="askChat" style="display:none;">
+        <div class="chat-log" id="chatLog"></div>
+        <div class="ask-form">
+          <button class="ask-mic" id="askMic" aria-label="ask by voice" title="Ask by voice">🎙️</button>
+          <textarea id="askInput" rows="1" placeholder="Type, or tap the mic to speak…"></textarea>
+          <button class="ask-send" id="askSend">Send</button>
+        </div>
+        <div class="ask-tools">
+          <button id="askClear">Clear chat</button>
+          <button id="askForget">Forget key</button>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <div class="overlay" id="overlay"></div>
@@ -995,6 +1074,18 @@ refBody.addEventListener("click", e=>{
   if(card) openDetail(card.dataset.inf);
 });
 overlay.addEventListener("click", e=>{ if(e.target===overlay || e.target.id==="ovClose") overlay.classList.remove("on"); });
+
+/* ---------- charts lightbox ---------- */
+function openChart(src,title){
+  overlay.innerHTML = `<div class="detail chart-light"><div class="detail-head"><span class="verb">${title}</span><button class="x" id="ovClose" aria-label="close">×</button></div><img src="${src}" alt="${title}"></div>`;
+  overlay.classList.add("on");
+}
+document.querySelectorAll("#charts .chart").forEach(c=>{
+  c.addEventListener("click", ()=>{
+    const cap=c.querySelector(".chart-cap");
+    openChart(c.dataset.full, cap ? cap.textContent : "");
+  });
+});
 
 /* ============================================================ NAV */
 document.querySelectorAll("nav > button").forEach(b=>{
@@ -1518,6 +1609,90 @@ document.getElementById("vReset2").addEventListener("click", vResetProgress);
 
 /* vocab init */
 vLoad(); renderVMenu(); updateVStats(); syncAvail(); renderLearn();
+
+/* ============================================================ ASK (AI tutor) */
+const OR_ENDPOINT="https://openrouter.ai/api/v1/chat/completions";
+const OR_SYSTEM="You are a warm, encouraging Italian language tutor for a complete beginner whose first language is English. Answer questions about Italian grammar and vocabulary clearly and simply, in British English. Keep answers short and focused — explain one step at a time, avoid jargon (or define it plainly), and give a brief Italian example with its English translation when it helps. If a question is not about learning Italian, gently steer back. Never mention that you are an AI model.";
+let orKey=localStorage.getItem("itg.or.key")||"";
+let orModel=localStorage.getItem("itg.or.model")||"~anthropic/claude-sonnet-latest";
+let askChatLog=[]; let askThinking=false;
+const askSetup=document.getElementById("askSetup"), askChatBox=document.getElementById("askChat"),
+  orKeyEl=document.getElementById("orKey"), orModelEl=document.getElementById("orModel"),
+  chatLogEl=document.getElementById("chatLog"), askInput=document.getElementById("askInput"),
+  askSendBtn=document.getElementById("askSend"), askMic=document.getElementById("askMic");
+
+function askEsc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+function askRender(){
+  let html=askChatLog.map((m,i)=>{
+    if(m.role==="user") return `<div class="msg user">${askEsc(m.content)}</div>`;
+    if(m.role==="error") return `<div class="msg err">${askEsc(m.content)}</div>`;
+    return `<div class="msg ai">${askEsc(m.content)}<button class="spk-reply" data-i="${i}" aria-label="hear reply">🔈</button></div>`;
+  }).join("");
+  if(askThinking) html+=`<div class="msg ai">…</div>`;
+  chatLogEl.innerHTML=html; chatLogEl.scrollTop=chatLogEl.scrollHeight;
+}
+function askToggle(){
+  orModelEl.value=orModel;
+  const has=!!orKey;
+  askSetup.style.display=has?"none":"";
+  askChatBox.style.display=has?"":"none";
+}
+document.getElementById("orSave").addEventListener("click",()=>{
+  const k=orKeyEl.value.trim(); if(!k){orKeyEl.focus();return;}
+  orKey=k; localStorage.setItem("itg.or.key",k);
+  const m=orModelEl.value.trim(); if(m){orModel=m;} localStorage.setItem("itg.or.model",orModel);
+  orKeyEl.value=""; askToggle(); askInput.focus();
+});
+document.getElementById("askForget").addEventListener("click",()=>{
+  localStorage.removeItem("itg.or.key"); orKey=""; askChatLog=[]; askRender(); askToggle();
+});
+document.getElementById("askClear").addEventListener("click",()=>{ askChatLog=[]; askRender(); });
+
+async function askSendMsg(){
+  const q=askInput.value.trim(); if(!q||!orKey||askThinking) return;
+  askChatLog.push({role:"user",content:q}); askInput.value=""; askInput.style.height="auto";
+  askThinking=true; askRender();
+  try{
+    const payload={model:orModel,messages:[{role:"system",content:OR_SYSTEM}].concat(
+      askChatLog.filter(m=>m.role==="user"||m.role==="assistant").slice(-12).map(m=>({role:m.role,content:m.content})))};
+    const res=await fetch(OR_ENDPOINT,{method:"POST",headers:{
+      "Authorization":"Bearer "+orKey,"Content-Type":"application/json",
+      "HTTP-Referer":location.origin,"X-OpenRouter-Title":"Grammatica"},
+      body:JSON.stringify(payload)});
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error((data.error&&data.error.message)||("HTTP "+res.status));
+    const txt=data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content;
+    askChatLog.push({role:"assistant",content:(txt||"(no reply)").trim()});
+  }catch(err){
+    askChatLog.push({role:"error",content:"Couldn't get an answer — "+err.message+". Check your key, the model name, your OpenRouter credit and your connection."});
+  }
+  askThinking=false; askRender();
+}
+askSendBtn.addEventListener("click",askSendMsg);
+askInput.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();askSendMsg();}});
+askInput.addEventListener("input",()=>{ askInput.style.height="auto"; askInput.style.height=Math.min(askInput.scrollHeight,140)+"px"; });
+
+chatLogEl.addEventListener("click",e=>{
+  const b=e.target.closest(".spk-reply"); if(!b) return;
+  const m=askChatLog[+b.dataset.i]; if(!m||!("speechSynthesis" in window)) return;
+  const u=new SpeechSynthesisUtterance(m.content); u.lang="en-GB"; u.rate=0.95;
+  window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
+});
+
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(SR && askMic){
+  const rec=new SR(); rec.lang="en-GB"; rec.interimResults=false; rec.maxAlternatives=1;
+  let recording=false;
+  askMic.addEventListener("click",()=>{ if(recording){rec.stop();return;} try{rec.start();}catch(e){} });
+  rec.onstart=()=>{ recording=true; askMic.classList.add("rec"); };
+  rec.onend=()=>{ recording=false; askMic.classList.remove("rec"); };
+  rec.onerror=()=>{ recording=false; askMic.classList.remove("rec"); };
+  rec.onresult=ev=>{ const t=ev.results[0][0].transcript;
+    askInput.value=(askInput.value?askInput.value+" ":"")+t;
+    askInput.dispatchEvent(new Event("input")); askInput.focus(); };
+} else if(askMic){ askMic.style.display="none"; }
+
+askToggle(); askRender();
 
 </script>
 </body>
