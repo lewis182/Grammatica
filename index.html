@@ -727,22 +727,9 @@
   </section>
 
   <!-- ============ CHARTS ============ -->
-  <section id="charts" class="view">
+    <section id="charts" class="view">
     <p style="color:var(--muted);font-size:14px;margin:4px 2px 6px;">Picture guides and cheat-sheets. Tap any chart to enlarge it for reading.</p>
-    <div class="section-label">Vocabulary</div>
-    <div class="chart-grid">
-      <div class="chart" data-full="charts/containers.jpg"><img src="charts/containers.jpg" alt="I contenitori — containers vocabulary" loading="lazy"><div class="chart-cap"><b>I contenitori</b> — Containers</div></div>
-      <div class="chart" data-full="charts/fruit.jpg"><img src="charts/fruit.jpg" alt="La frutta — fruit vocabulary" loading="lazy"><div class="chart-cap"><b>La frutta</b> — Fruit</div></div>
-    </div>
-    <div class="section-label">Verb lists</div>
-    <div class="chart-grid">
-      <div class="chart" data-full="charts/verbs-by-category.jpg"><img src="charts/verbs-by-category.jpg" alt="Common verbs grouped by topic" loading="lazy"><div class="chart-cap"><b>Verbs by topic</b> — 90+ everyday verbs</div></div>
-      <div class="chart" data-full="charts/500-verbs.jpg"><img src="charts/500-verbs.jpg" alt="500 base verbs in the io form" loading="lazy"><div class="chart-cap"><b>Base verbs</b> — the “io” (I…) form</div></div>
-    </div>
-    <div class="section-label">Grammar</div>
-    <div class="chart-grid">
-      <div class="chart" data-full="charts/vado-a-al-in.jpg"><img src="charts/vado-a-al-in.jpg" alt="Vado a, vado al, vado in — going places" loading="lazy"><div class="chart-cap"><b>Vado a / al / in</b> — going places</div></div>
-    </div>
+    <div id="chartsBody"></div>
   </section>
 
   <!-- ============ ASK (AI tutor) ============ -->
@@ -1080,11 +1067,27 @@ function openChart(src,title){
   overlay.innerHTML = `<div class="detail chart-light"><div class="detail-head"><span class="verb">${title}</span><button class="x" id="ovClose" aria-label="close">×</button></div><img src="${src}" alt="${title}"></div>`;
   overlay.classList.add("on");
 }
-document.querySelectorAll("#charts .chart").forEach(c=>{
-  c.addEventListener("click", ()=>{
-    const cap=c.querySelector(".chart-cap");
-    openChart(c.dataset.full, cap ? cap.textContent : "");
-  });
+const CHARTS=[
+  {g:"Vocabulary", it:"I contenitori", en:"Containers", f:"charts/containers.jpg"},
+  {g:"Vocabulary", it:"La frutta", en:"Fruit", f:"charts/fruit.jpg"},
+  {g:"Verb lists", it:"Verbs by topic", en:"90+ everyday verbs", f:"charts/verbs-by-category.jpg"},
+  {g:"Verb lists", it:"Base verbs", en:"the \u201cio\u201d (I\u2026) form", f:"charts/500-verbs.jpg"},
+  {g:"Grammar", it:"Vado a / al / in", en:"going places", f:"charts/vado-a-al-in.jpg"}
+];
+function renderCharts(){
+  const body=document.getElementById("chartsBody"); if(!body) return;
+  const groups=[]; CHARTS.forEach(c=>{ if(!groups.includes(c.g)) groups.push(c.g); });
+  body.innerHTML=groups.map(g=>{
+    const items=CHARTS.filter(c=>c.g===g).map(c=>
+      `<div class="chart"><img src="${c.f}" alt="${c.it} \u2014 ${c.en}" loading="lazy"><div class="chart-cap"><b>${c.it}</b> \u2014 ${c.en}</div></div>`).join("");
+    return `<div class="section-label">${g}</div><div class="chart-grid">${items}</div>`;
+  }).join("");
+}
+renderCharts();
+document.getElementById("chartsBody").addEventListener("click", e=>{
+  const c=e.target.closest(".chart"); if(!c) return;
+  const cap=c.querySelector(".chart-cap"); const img=c.querySelector("img");
+  openChart(img ? img.src : "", cap ? cap.textContent : "");
 });
 
 /* ============================================================ NAV */
