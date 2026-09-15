@@ -233,7 +233,7 @@
 <header>
   <div class="brand">
     <div class="flag"><span class="g"></span><span class="w"></span><span class="r"></span></div>
-    <h1>Grammatica <span class="ver">v1.3</span><small>Italian verbs &amp; grammar</small></h1>
+    <h1>Grammatica <span class="ver">v1.5</span><small>Italian verbs &amp; grammar</small></h1>
   </div>
   <nav>
     <button data-view="start" class="active">Start here</button>
@@ -1068,18 +1068,46 @@ function openChart(src,title){
   overlay.classList.add("on");
 }
 const CHARTS=[
-  {g:"Vocabulary", it:"I contenitori", en:"Containers", f:"charts/containers.jpg"},
-  {g:"Vocabulary", it:"La frutta", en:"Fruit", f:"charts/fruit.jpg"},
-  {g:"Verb lists", it:"Verbs by topic", en:"90+ everyday verbs", f:"charts/verbs-by-category.jpg"},
-  {g:"Verb lists", it:"Base verbs", en:"the \u201cio\u201d (I\u2026) form", f:"charts/500-verbs.jpg"},
-  {g:"Grammar", it:"Vado a / al / in", en:"going places", f:"charts/vado-a-al-in.jpg"}
+  {g:"Everyday vocabulary", it:"I contenitori", en:"Containers", f:"charts/Containers Vocab.jpg"},
+  {g:"Food & drink", it:"La frutta", en:"Fruit", f:"charts/La Frutta.jpg"},
+  {g:"Food & drink", it:"Il caff\u00e8", en:"Coffee", f:"charts/Italian Coffee.jpg"},
+  {g:"Food & drink", it:"I dolci", en:"Desserts", f:"charts/Italian deserts.jpg"},
+  {g:"Food & drink", it:"Piatti di pasta", en:"Pasta dishes", f:"charts/Pasta Dishes.jpg"},
+  {g:"Food & drink", it:"Formati di pasta", en:"Pasta shapes", f:"charts/Pasta Shapes.jpg"},
+  {g:"Food & drink", it:"L'olio d'oliva", en:"Olive oil", f:"charts/Italian Olive Oil.jpg"},
+  {g:"Food & drink", it:"I vini", en:"Wines", f:"charts/Itialian Vines.jpg"},
+  {g:"Culture & travel", it:"Borghi toscani", en:"Tuscan hilltop villages", f:"charts/Italian Villages.jpg"},
+  {g:"Culture & travel", it:"In treno da Bologna", en:"Train trips from Bologna", f:"charts/Bologna Train Journeys.jpg"},
+  {g:"Verbs", it:"I verbi", en:"Italian verbs", f:"charts/Italian Verbs.jpg"},
+  {g:"Verbs", it:"Verbi d'azione", en:"Action verbs", f:"charts/Action Words.jpg"},
+  {g:"Verbs", it:"Essere, fare, avere", en:"three key verbs", f:"charts/Essere Fare Avere.jpg"},
+  {g:"Verbs", it:"Essere e avere", en:"to be / to have", f:"charts/Essere and Avere.jpg"},
+  {g:"Verbs", it:"Essere vs stare", en:"two ways to say 'to be'", f:"charts/Essere Vs Stare.jpg"},
+  {g:"Verbs", it:"Stare", en:"to stay / to be", f:"charts/Stare.jpg"},
+  {g:"Grammar", it:"Gli articoli", en:"Articles", f:"charts/Italian articles.jpg"},
+  {g:"Grammar", it:"Le preposizioni", en:"Prepositions", f:"charts/Propositions.jpg"},
+  {g:"Grammar", it:"Di, a, da, in, con", en:"prepositions in use", f:"charts/Di A Da In Con.jpg"},
+  {g:"Grammar", it:"Lo, la, li, le", en:"direct object pronouns", f:"charts/Lo La Li Le.jpg"},
+  {g:"Grammar", it:"Mi, ti, gli", en:"object pronouns", f:"charts/Mi Ti Gli.jpg"},
+  {g:"Grammar", it:"Ne e ci", en:"ne and ci", f:"charts/Ne And Ce.jpg"},
+  {g:"Grammar", it:"C'\u00e8 vs ci sono", en:"there is / there are", f:"charts/Ce Vs Ci Sono.jpg"},
+  {g:"Grammar", it:"Aggettivi possessivi", en:"Possessive adjectives", f:"charts/Possesive Adjectives.jpg"},
+  {g:"Grammar", it:"Dopo vs dopo che", en:"'after'", f:"charts/Dopo Vs Dopo Che.jpg"},
+  {g:"Grammar", it:"Mentre vs durante", en:"'while / during'", f:"charts/Mentre Durante.jpg"},
+  {g:"Grammar", it:"Imperfetto e passato prossimo", en:"past tenses", f:"charts/Imperfect and Perfect tense.jpg"},
+  {g:"Grammar", it:"Vado a / al / in", en:"going places", f:"charts/Vado.PNG"},
+  {g:"Food & drink", it:"Il pane", en:"Bread", f:"charts/Italian Bread.jpg"},
+  {g:"Verbs", it:"Essere — indicativo", en:"'to be', all tenses", f:"charts/essere.jpg"},
+  {g:"Verbs", it:"Verbi comuni", en:"key verbs conjugated", f:"charts/Sono Faccio verbs.jpg"},
+  {g:"Verbs", it:"Sarà, avrà…", en:"future for guessing", f:"charts/Sara verbs.jpg"},
+  {g:"Grammar", it:"Ci vuole vs ci vogliono", en:"how long it takes", f:"charts/Voule Voglinono Verbs.jpg"}
 ];
 function renderCharts(){
   const body=document.getElementById("chartsBody"); if(!body) return;
   const groups=[]; CHARTS.forEach(c=>{ if(!groups.includes(c.g)) groups.push(c.g); });
   body.innerHTML=groups.map(g=>{
     const items=CHARTS.filter(c=>c.g===g).map(c=>
-      `<div class="chart"><img src="${c.f}" alt="${c.it} \u2014 ${c.en}" loading="lazy"><div class="chart-cap"><b>${c.it}</b> \u2014 ${c.en}</div></div>`).join("");
+      `<div class="chart"><img src="${encodeURI(c.f)}" alt="${c.it} \u2014 ${c.en}" loading="lazy"><div class="chart-cap"><b>${c.it}</b> \u2014 ${c.en}</div></div>`).join("");
     return `<div class="section-label">${g}</div><div class="chart-grid">${items}</div>`;
   }).join("");
 }
