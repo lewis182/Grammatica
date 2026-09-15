@@ -233,7 +233,7 @@
 <header>
   <div class="brand">
     <div class="flag"><span class="g"></span><span class="w"></span><span class="r"></span></div>
-    <h1>Grammatica <span class="ver">v1.5</span><small>Italian verbs &amp; grammar</small></h1>
+    <h1>Grammatica <span class="ver">v1.6</span><small>Italian verbs &amp; grammar</small></h1>
   </div>
   <nav>
     <button data-view="start" class="active">Start here</button>
@@ -1104,7 +1104,9 @@ const CHARTS=[
 ];
 function renderCharts(){
   const body=document.getElementById("chartsBody"); if(!body) return;
-  const groups=[]; CHARTS.forEach(c=>{ if(!groups.includes(c.g)) groups.push(c.g); });
+  const order=["Verbs","Grammar","Everyday vocabulary","Food & drink","Culture & travel"];
+  const groups=[]; order.forEach(g=>{ if(CHARTS.some(c=>c.g===g)) groups.push(g); });
+  CHARTS.forEach(c=>{ if(!groups.includes(c.g)) groups.push(c.g); });
   body.innerHTML=groups.map(g=>{
     const items=CHARTS.filter(c=>c.g===g).map(c=>
       `<div class="chart"><img src="${encodeURI(c.f)}" alt="${c.it} \u2014 ${c.en}" loading="lazy"><div class="chart-cap"><b>${c.it}</b> \u2014 ${c.en}</div></div>`).join("");
